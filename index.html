@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROSHINI.DATA | Data Analyst Portfolio</title>
+<style>
+:root {
+  --bg: #07060f;
+  --bg-card: #0e0c1e;
+  --cyan: #d4561a;
+  --cyan-dim: rgba(212,86,26,0.09);
+  --cyan-glow: rgba(212,86,26,0.18);
+  --purple: #7c3aed;
+  --purple-l: #a78bfa;
+  --green: #34d399;
+  --pink: #e879f9;
+  --w: #f5ede0;
+  --w70: rgba(245,237,224,0.7);
+  --w40: rgba(245,237,224,0.35);
+  --border: #1c1730;
+  --border-s: #2e2550;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--w);overflow-x:hidden;min-height:100vh}
+
+/* ---------- canvas ---------- */
+#bgc{position:fixed;inset:0;z-index:0;pointer-events:none}
+.glow{position:fixed;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(212,86,26,0.07),rgba(124,58,237,0.04) 50%,transparent 70%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left .08s,top .08s}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;padding:17px 64px;background:rgba(8,7,28,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-size:1.1rem;font-weight:800;letter-spacing:3px;cursor:pointer;user-select:none}
+.logo span{background:linear-gradient(135deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:34px;list-style:none}
+.nav-links a{color:var(--w40);text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.8px;cursor:pointer;transition:color .25s;padding-bottom:3px;border-bottom:1px solid transparent}
+.nav-links a:hover,.nav-links a.active{color:var(--w);border-bottom-color:var(--cyan)}
+
+/* ---------- pages ---------- */
+.page{display:none;min-height:100vh;padding-top:70px;position:relative;z-index:1;animation:fi .35s ease}
+.page.active{display:block}
+#home::before{content:'';position:absolute;top:-80px;right:-60px;width:580px;height:580px;background:radial-gradient(circle at 70% 30%,rgba(212,86,26,0.07),rgba(124,58,237,0.04) 40%,transparent 70%);pointer-events:none;z-index:0}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---------- shared ---------- */
+.glass{background:var(--bg-card);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:16px}
+.glow-line{height:1px;background:linear-gradient(to right,transparent,var(--cyan),transparent);opacity:.22;margin:0}
+.section-label{font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);padding-left:10px;border-left:3px solid var(--pink)}
+.page-heading{font-size:2.6rem;font-weight:900;letter-spacing:2px}
+.page-sub{font-size:.8rem;color:var(--w40);margin-top:6px;margin-bottom:36px}
+.btn{background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;color:#fff;padding:11px 26px;border-radius:8px;font-size:.83rem;font-weight:700;letter-spacing:.8px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(212,86,26,0.3)}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--pink),var(--purple));transform:translateX(-101%);transition:transform .35s;z-index:0}
+.btn span,.btn{z-index:1}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(232,121,249,0.35)}.btn:hover::before{transform:translateX(0)}
+.tag{background:var(--cyan-dim);border:1px solid var(--border);color:var(--w70);padding:5px 13px;border-radius:18px;font-size:.76rem;font-weight:500;transition:all .25s;cursor:default}
+.tag:hover{border-color:var(--border-s);color:var(--cyan)}
+
+/* ======== HOME ======== */
+.home-hero{display:grid;grid-template-columns:1fr 310px;gap:56px;padding:56px 80px 32px;align-items:start}
+.hero-eyebrow{font-size:.7rem;letter-spacing:3px;color:var(--cyan);font-weight:700;text-transform:uppercase;margin-bottom:14px}
+.hero-h1{font-size:3.4rem;font-weight:900;line-height:1.08;margin-bottom:18px}
+.hero-h1 em{font-style:normal;background:linear-gradient(135deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-p{font-size:.86rem;line-height:1.72;color:var(--w70);max-width:460px;margin-bottom:24px}
+.skill-row{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px}
+
+/* profile */
+.pframe{position:relative;width:280px;height:330px}
+.pimg{width:100%;height:100%;border-radius:16px;background:#0e0c1e;border:1px solid rgba(212,86,26,0.45);overflow:hidden;position:relative;box-shadow:0 0 50px rgba(212,86,26,0.22),0 0 20px rgba(232,121,249,0.1),inset 0 0 32px rgba(124,58,237,0.15)}
+.corner{position:absolute;width:18px;height:18px;border-color:var(--cyan);border-style:solid}
+.corner.tl{top:-2px;left:-2px;border-width:2px 0 0 2px}
+.corner.tr{top:-2px;right:-2px;border-width:2px 2px 0 0}
+.corner.bl{bottom:-2px;left:-2px;border-width:0 0 2px 2px}
+.corner.br{bottom:-2px;right:-2px;border-width:0 2px 2px 0}
+.scan{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--cyan),transparent);animation:scan 3s linear infinite;opacity:.6}
+@keyframes scan{0%{top:0}100%{top:100%}}
+.pbadge{position:absolute;bottom:-10px;right:-10px;background:var(--bg-card);border:1px solid var(--border-s);border-radius:8px;padding:6px 12px;font-size:.68rem;color:var(--cyan);backdrop-filter:blur(10px)}
+.mini-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:280px;margin-top:16px}
+.mini-stat{text-align:center;padding:14px;background:var(--bg-card);border:1px solid var(--border-s);border-radius:12px;transition:all .3s}.mini-stat:hover{border-color:var(--cyan);box-shadow:0 0 20px rgba(212,86,26,0.2)}
+.mini-stat-val{font-size:1.35rem;font-weight:900}
+.mini-stat-lbl{font-size:.68rem;color:var(--w40);margin-top:2px}
+
+/* timeline */
+.tl-wrap{padding:36px 80px}
+.tl-grid{display:grid;grid-template-columns:140px 1fr;gap:0 28px;position:relative}
+.tl-grid::before{content:'';position:absolute;left:140px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--cyan),transparent);opacity:.35}
+.tl-year{display:flex;justify-content:flex-end;padding-top:3px}
+.yr-badge{background:var(--cyan-dim);border:1px solid var(--border-s);color:var(--cyan);padding:4px 12px;border-radius:18px;font-size:.75rem;font-weight:800;white-space:nowrap}
+.tl-items{padding-bottom:0}
+.tl-item{padding:0 0 22px 28px;position:relative}
+.tl-item::before{content:'';position:absolute;left:-5px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.tl-title{font-size:.84rem;font-weight:700;color:var(--w);margin-bottom:3px}
+.tl-sub{font-size:.76rem;color:var(--w40);line-height:1.5}
+
+/* cool projects */
+.cool-wrap{padding:32px 80px 60px}
+.proj-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.proj-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:22px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.proj-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--cyan-dim),transparent);opacity:0;transition:opacity .3s}
+.proj-card:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 8px 32px rgba(212,86,26,0.18)}
+.proj-card:hover::after{opacity:1}
+.proj-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.proj-title{font-size:.88rem;font-weight:700}
+.proj-btn{background:var(--cyan-dim);border:1px solid var(--border-s);color:var(--cyan);padding:3px 10px;border-radius:12px;font-size:.68rem;font-weight:700;cursor:pointer;z-index:2;position:relative}
+.proj-desc{font-size:.78rem;color:var(--w40);line-height:1.5;margin-bottom:14px}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px}
+.proj-tag{background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:var(--purple-l);padding:3px 10px;border-radius:12px;font-size:.7rem}
+
+/* ======== PROJECTS ======== */
+.proj-layout{display:grid;grid-template-columns:210px 1fr;min-height:calc(100vh - 70px)}
+.proj-sidebar{padding:38px 22px;border-right:1px solid var(--border);background:rgba(0,0,0,0.18)}
+.sb-group{margin-bottom:26px}
+.sb-title{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.sb-item{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:.79rem;color:var(--w40);cursor:pointer;transition:color .2s}
+.sb-item:hover{color:var(--w)}
+.sb-item.on{color:var(--cyan)}
+.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--border-s);flex-shrink:0}
+.sb-item.on .sb-dot{background:var(--cyan)}
+.proj-main{padding:40px 50px}
+.dash-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative;margin-bottom:18px}
+.dash-inner{padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.dash-label{font-size:.72rem;color:var(--w40);margin-bottom:10px}
+/* case study overlay */
+.cs-overlay{position:absolute;right:0;top:0;bottom:0;width:44%;background:rgba(4,8,15,0.93);border-left:1px solid var(--border-s);backdrop-filter:blur(12px);padding:22px;display:flex;flex-direction:column}
+.cs-close{position:absolute;top:14px;right:14px;width:22px;height:22px;border:1px solid var(--border);border-radius:50%;background:none;color:var(--w40);font-size:.72rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.cs-close:hover{border-color:var(--cyan);color:var(--cyan)}
+.cs-eyebrow{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--w40);margin-bottom:6px}
+.cs-title{font-size:.94rem;font-weight:800;margin-bottom:8px;line-height:1.3}
+.cs-desc{font-size:.75rem;color:var(--w40);line-height:1.55;flex:1;margin-bottom:12px}
+.cs-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.cs-metric-val{font-size:1.15rem;font-weight:900}
+.cs-metric-lbl{font-size:.63rem;color:var(--w40)}
+.cs-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cs-tag{background:var(--cyan-dim);border:1px solid var(--border);color:var(--w70);padding:3px 8px;border-radius:7px;font-size:.68rem}
+.mini-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.mini-c{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:15px;cursor:pointer;transition:border-color .25s}
+.mini-c:hover{border-color:var(--border-s)}
+.mini-c-title{font-size:.8rem;font-weight:700;margin-bottom:4px}
+.mini-c-sub{font-size:.7rem;color:var(--w40)}
+
+/* ======== CASE STUDY ======== */
+.cs-layout{display:grid;grid-template-columns:1fr 350px;gap:40px;padding:50px 80px;min-height:calc(100vh - 70px)}
+.cs-section{margin-bottom:28px}
+.cs-body{font-size:.81rem;line-height:1.72;color:var(--w40)}
+.cs-body p{margin-bottom:7px}
+.metrics-2x2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.metric-box{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.metric-box-val{font-size:2.4rem;font-weight:900;color:var(--cyan);line-height:1;margin-bottom:5px}
+.metric-box-lbl{font-size:.7rem;color:var(--w40)}
+.insight-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.insight-row:last-child{border-bottom:none}
+.i-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);margin-top:6px;flex-shrink:0}
+.i-text{font-size:.79rem;color:var(--w40);line-height:1.5}
+.cs-right-sticky{position:sticky;top:90px;display:flex;flex-direction:column;gap:16px}
+.dash-prev{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.kpi-lbl{font-size:.63rem;color:var(--w40);margin-bottom:3px}
+.kpi-val{font-size:1.05rem;font-weight:900}
+
+/* ======== BLOG ======== */
+.blog-wrap{padding:50px 80px;min-height:calc(100vh - 70px)}
+.filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+.fbtn{background:transparent;border:none;color:var(--w40);padding:8px 12px;border-radius:8px;font-size:.79rem;cursor:pointer;transition:all .25s;text-align:left;width:100%;display:block}
+.fbtn:hover,.fbtn.on{background:var(--cyan-dim);color:var(--cyan)}
+.blog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.bcard{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .3s}
+.bcard:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 10px 36px rgba(212,86,26,0.15)}
+.bcard.hot{border-color:var(--border-s)}
+.bcard-icon{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;border-bottom:1px solid var(--border)}
+.bcard-body{padding:18px}
+.bcard-cat{font-size:.66rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
+.bcard-title{font-size:.88rem;font-weight:700;line-height:1.38;margin-bottom:7px}
+.bcard-exc{font-size:.77rem;color:var(--w40);line-height:1.58;margin-bottom:14px}
+.bcard-foot{display:flex;justify-content:space-between;align-items:center}
+.bcard-stats{display:flex;gap:10px}
+.bcard-stat{font-size:.7rem;color:var(--w40)}
+.read{font-size:.7rem;color:var(--cyan);font-weight:700}
+
+/* scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border-s);border-radius:2px}
+
+/* ======== BLOG ENHANCED ======== */
+.blog-search{display:flex;align-items:center;gap:10px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:9px 16px;margin-bottom:20px;max-width:360px}
+.blog-search input{background:none;border:none;outline:none;color:var(--w);font-size:.82rem;width:100%}
+.blog-search input::placeholder{color:var(--w40)}
+.blog-search svg{flex-shrink:0;opacity:.4}
+.bcard-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.bcard-tag{background:rgba(124,58,237,0.14);border:1px solid rgba(124,58,237,0.28);color:var(--purple-l);padding:2px 8px;border-radius:8px;font-size:.66rem}
+.bcard-readtime{font-size:.68rem;color:var(--w40);display:flex;align-items:center;gap:4px}
+.bcard-date{font-size:.68rem;color:var(--w40)}
+.bcard-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+
+/* ======== CONTACT PAGE ======== */
+.contact-layout{display:grid;grid-template-columns:1fr 340px;gap:48px;padding:56px 80px;min-height:calc(100vh - 70px);align-items:start}
+.contact-form-wrap{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:40px}
+.contact-form-title{font-size:1.6rem;font-weight:900;margin-bottom:6px}
+.contact-form-sub{font-size:.82rem;color:var(--w40);margin-bottom:32px;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{margin-bottom:20px}
+.form-label{font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;display:block}
+.form-input,.form-select,.form-textarea{width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:10px;padding:13px 16px;font-size:.84rem;color:var(--w);font-family:inherit;outline:none;transition:border-color .25s,box-shadow .25s;-webkit-appearance:none;appearance:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--border-s);box-shadow:0 0 0 3px rgba(212,86,26,0.14)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--w40)}
+.form-input.err,.form-textarea.err{border-color:var(--pink);box-shadow:0 0 0 3px rgba(244,114,182,0.08)}
+.form-err{font-size:.7rem;color:var(--pink);margin-top:5px;display:none}
+.form-err.show{display:block}
+.form-select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300d4ff' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.form-select option{background:#0a1628;color:var(--w)}
+.form-textarea{resize:vertical;min-height:130px;line-height:1.6}
+.char-counter{font-size:.68rem;color:var(--w40);text-align:right;margin-top:4px}
+.form-submit{width:100%;padding:15px;border-radius:10px;font-size:.9rem;font-weight:800;letter-spacing:1px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;background:transparent;border:1px solid var(--cyan);color:var(--cyan);margin-top:8px}
+.form-submit::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--cyan),var(--purple-l));transform:translateX(-101%);transition:transform .35s;z-index:-1}
+.form-submit:hover{color:var(--bg)}.form-submit:hover::before{transform:translateX(0)}
+.form-submit:disabled{opacity:.5;cursor:not-allowed}
+.form-submit .spin{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* success state */
+.contact-success{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 20px;min-height:400px}
+.success-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--purple-l));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 24px;animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.success-title{font-size:1.4rem;font-weight:900;margin-bottom:10px}
+.success-sub{font-size:.84rem;color:var(--w40);line-height:1.65;margin-bottom:28px}
+
+/* contact info panel */
+.contact-info{display:flex;flex-direction:column;gap:16px;position:sticky;top:90px}
+.info-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.info-card-title{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+.info-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.info-row:last-child{border-bottom:none;padding-bottom:0}
+.info-icon{width:34px;height:34px;border-radius:8px;background:var(--cyan-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.info-label{font-size:.7rem;color:var(--w40);margin-bottom:3px}
+.info-val{font-size:.82rem;font-weight:600;color:var(--w);word-break:break-all}
+.info-val a{color:var(--w);text-decoration:none;transition:color .2s}
+.info-val a:hover{color:var(--cyan)}
+.avail-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);display:inline-block;margin-right:6px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.skill-chart{margin-top:4px}
+.skill-bar-row{margin-bottom:10px}
+.skill-bar-label{display:flex;justify-content:space-between;font-size:.72rem;color:var(--w70);margin-bottom:5px}
+.skill-bar-track{height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
+.skill-bar-fill{height:100%;border-radius:3px;background:linear-gradient(to right,var(--cyan),var(--purple-l));width:0%;transition:width 1s cubic-bezier(.25,.46,.45,.94)}
+
+@media(max-width:1100px){.contact-layout{grid-template-columns:1fr;padding:40px 28px}.contact-info{position:relative;top:0}}
+@media(max-width:640px){.form-row{grid-template-columns:1fr}.contact-form-wrap{padding:24px}}
+
+/* ======== ARTICLE MODAL ======== */
+.modal-bg{position:fixed;inset:0;background:rgba(2,5,12,0.88);backdrop-filter:blur(8px);z-index:2000;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
+.modal-bg.open{display:flex}
+.modal-panel{background:linear-gradient(180deg,#0e0b24 0%,#08071c 100%);border:1px solid var(--border-s);border-radius:20px;width:100%;max-width:800px;position:relative;overflow:hidden}
+.modal-progress{position:sticky;top:0;height:3px;background:var(--border);z-index:10}
+.modal-progress-bar{height:100%;background:linear-gradient(to right,var(--cyan),var(--purple-l));width:0%;transition:width .1s}
+.modal-head{padding:32px 40px 20px;border-bottom:1px solid var(--border)}
+.modal-close{position:absolute;top:20px;right:24px;width:32px;height:32px;border:1px solid var(--border);border-radius:50%;background:none;color:var(--w40);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{border-color:var(--cyan);color:var(--cyan)}
+.modal-cat{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:10px}
+.modal-title{font-size:1.6rem;font-weight:900;line-height:1.2;margin-bottom:14px}
+.modal-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:.74rem;color:var(--w40)}
+.modal-body{padding:32px 40px 40px;line-height:1.8}
+
+/* article body elements */
+.a-h2{font-size:1rem;font-weight:800;color:var(--w);margin:28px 0 10px;padding-left:12px;border-left:3px solid var(--cyan)}
+.a-h3{font-size:.88rem;font-weight:700;color:var(--cyan);margin:18px 0 8px}
+.a-p{font-size:.84rem;line-height:1.78;color:var(--w70);margin-bottom:12px}
+.a-code{background:#030812;border:1px solid rgba(212,86,26,0.18);border-radius:10px;padding:18px 20px;overflow-x:auto;font-family:'Courier New',Consolas,monospace;font-size:.76rem;line-height:1.65;color:#c9d8f0;margin:16px 0;white-space:pre;display:block}
+.a-list{padding-left:0;margin:10px 0 14px;list-style:none}
+.a-list li{font-size:.83rem;color:var(--w70);line-height:1.7;margin-bottom:5px;padding-left:16px;position:relative}
+.a-list li::before{content:'›';position:absolute;left:0;color:var(--cyan)}
+.a-callout{background:rgba(212,86,26,0.06);border-left:3px solid var(--cyan);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0;font-size:.82rem;color:var(--w70);line-height:1.65}
+.a-warn{background:rgba(236,72,153,0.07);border-left:3px solid var(--pink);border-radius:0 8px 8px 0;padding:14px 18px;margin:16px 0;font-size:.82rem;color:var(--w70);line-height:1.65}
+.a-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:18px 0}
+.a-metric{background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.a-metric-val{font-size:1.7rem;font-weight:900;color:var(--cyan);line-height:1}
+.a-metric-lbl{font-size:.68rem;color:var(--w40);margin-top:4px}
+.a-table{width:100%;border-collapse:collapse;font-size:.78rem;margin:16px 0}
+.a-table th{text-align:left;padding:9px 14px;background:rgba(212,86,26,0.07);color:var(--cyan);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.a-table td{padding:9px 14px;border-bottom:1px solid rgba(255,255,255,0.05);color:var(--w70)}
+.a-table tr:hover td{background:rgba(212,86,26,0.03)}
+.a-divider{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);margin:24px 0}
+.a-takeaways{background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.25);border-radius:12px;padding:20px 24px;margin-top:24px}
+.a-takeaways-title{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--purple-l);margin-bottom:12px}
+/* syntax colors */
+.kw{color:#00d4ff}.st{color:#4ade80}.cm{color:#475569}.fn{color:#f472b6}.nm{color:#a78bfa}.op{color:#94a3b8}
+
+/* responsive */
+@media(max-width:1100px){
+  .home-hero{grid-template-columns:1fr;padding:40px}
+  .proj-layout{grid-template-columns:1fr}
+  .proj-sidebar{border-right:none;border-bottom:1px solid var(--border)}
+  .cs-layout{grid-template-columns:1fr;padding:40px}
+  nav{padding:17px 28px}
+  .home-hero,.tl-wrap,.cool-wrap{padding-left:28px;padding-right:28px}
+  .blog-wrap{padding:40px 28px}
+  #blog .blog-sidebar-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:640px){
+  .hero-h1{font-size:2.2rem}
+  .proj-cards{grid-template-columns:1fr}
+  .blog-grid{grid-template-columns:1fr}
+  .metrics-2x2,.cs-metrics{grid-template-columns:1fr}
+  .mini-cards{grid-template-columns:1fr}
+  .dash-inner{grid-template-columns:1fr}
+}
+
+/* ======== STUDY PAGE ======== */
+.study-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 70px)}
+.study-main{padding:44px 56px;max-width:860px}
+.lesson-badge{display:inline-flex;align-items:center;gap:8px;background:var(--cyan-dim);border:1px solid var(--border-s);border-radius:18px;padding:5px 14px;font-size:.7rem;font-weight:700;color:var(--cyan);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px}
+.lesson-h1{font-size:2.2rem;font-weight:900;line-height:1.15;margin-bottom:12px}
+.lesson-intro{font-size:.88rem;line-height:1.75;color:var(--w70);margin-bottom:28px;max-width:680px}
+.lesson-h2{font-size:1.05rem;font-weight:800;color:var(--w);margin:32px 0 12px;display:flex;align-items:center;gap:10px}
+.lesson-h2::before{content:'';width:4px;height:18px;background:linear-gradient(to bottom,var(--cyan),var(--pink));border-radius:2px;flex-shrink:0}
+.lesson-p{font-size:.84rem;line-height:1.75;color:var(--w70);margin-bottom:14px}
+.formula-box{background:var(--bg-card);border:1px solid var(--border-s);border-radius:12px;padding:18px 22px;margin:14px 0;font-family:'Courier New',Consolas,monospace;font-size:.92rem;color:var(--cyan);text-align:center;letter-spacing:.5px}
+.formula-box span{color:var(--w70);font-size:.78rem;display:block;margin-top:6px;font-family:'Segoe UI',sans-serif;letter-spacing:0}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:18px;transition:border-color .25s}
+.stat-card:hover{border-color:var(--border-s)}
+.stat-card-title{font-size:.78rem;font-weight:800;color:var(--cyan);margin-bottom:6px}
+.stat-card-body{font-size:.76rem;color:var(--w40);line-height:1.6}
+.stat-card-val{font-size:1.4rem;font-weight:900;color:var(--w);margin:8px 0 4px}
+.tip-box{background:rgba(212,86,26,0.07);border-left:3px solid var(--cyan);border-radius:0 10px 10px 0;padding:14px 18px;margin:14px 0;font-size:.82rem;color:var(--w70);line-height:1.65}
+.tip-box strong{color:var(--cyan)}
+.warn-box{background:rgba(232,121,249,0.07);border-left:3px solid var(--pink);border-radius:0 10px 10px 0;padding:14px 18px;margin:14px 0;font-size:.82rem;color:var(--w70);line-height:1.65}
+.warn-box strong{color:var(--pink)}
+.study-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.8rem}
+.study-table th{text-align:left;padding:10px 14px;background:rgba(212,86,26,0.08);color:var(--cyan);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.study-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--w70);vertical-align:top}
+.study-table tr:hover td{background:rgba(212,86,26,0.04)}
+.topic-locked{opacity:.4;cursor:default;pointer-events:none}
+.topic-soon{font-size:.6rem;background:var(--border);color:var(--w40);padding:2px 7px;border-radius:8px;margin-left:auto}
+.progress-bar-wrap{background:var(--border);border-radius:4px;height:4px;margin-top:8px}
+.progress-bar{height:4px;border-radius:4px;background:linear-gradient(to right,var(--cyan),var(--pink))}
+@media(max-width:1100px){.study-layout{grid-template-columns:1fr}.study-main{padding:32px 28px}}
+</style>
+</head>
+<body>
+
+<canvas id="bgc"></canvas>
+<div class="glow" id="glow"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="go('home')" style="color: var(--w);">Roshini Chandramohan</div>
+  <ul class="nav-links">
+    <li><a id="n-home" class="active" onclick="go('home')">Home</a></li>
+    <li><a id="n-projects" onclick="go('projects')">Projects</a></li>
+    <li><a id="n-casestudy" onclick="go('casestudy')">Case Study</a></li>
+    <li><a id="n-blog" onclick="go('blog')">Blog</a></li>
+    <li><a id="n-study" onclick="go('study')">Study</a></li>
+    <li><a id="n-contact" onclick="go('contact')" style="color:var(--cyan);border:1px solid var(--border);padding:4px 14px;border-radius:16px;transition:all .25s" onmouseover="this.style.background='var(--cyan-dim)'" onmouseout="this.style.background='transparent'">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- ===================== HOME ===================== -->
+<section class="page active" id="home">
+  <div class="home-hero">
+    <!-- LEFT -->
+    <div>
+      <p class="hero-eyebrow">Senior Data Analyst · AtkinsRealis · Rugby, United Kingdom</p>
+      <h1 class="hero-h1">Actionable Insights<br>through Data<br><em>Storytelling.</em></h1>
+      <p class="hero-p">Data Analyst with 6+ years turning complex operational datasets into decisions that improve planning, reduce costs and drive capital investment strategies. I build predictive models, automate reporting pipelines and deliver Power BI dashboards used by infrastructure teams and senior leadership. Currently expanding into investment banking analytics through Financial Edge MicroDegree.</p>
+      <div class="skill-row">
+        <span class="tag">Python</span><span class="tag">SQL / MySQL</span><span class="tag">Power BI</span>
+        <span class="tag">Tableau</span><span class="tag">Scikit-learn</span><span class="tag">Airflow</span><span class="tag">GCP</span>
+      </div>
+      <button class="btn" onclick="go('contact')">Get in Touch</button>
+    </div>
+    <!-- RIGHT -->
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <div class="pframe">
+        <div class="pimg">
+          <img src="1724167524422.jpg" alt="Roshini Chandramohan" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;display:block;">
+          <div class="scan"></div>
+        </div>
+        <div class="corner tl"></div><div class="corner tr"></div>
+        <div class="corner bl"></div><div class="corner br"></div>
+        <div class="pbadge">● ROSHINI CHANDRAMOHAN</div>
+      </div>
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="mini-stat-val" style="color:var(--cyan)">6+</div><div class="mini-stat-lbl">Years Exp.</div></div>
+        <div class="mini-stat"><div class="mini-stat-val" style="color:var(--purple-l)">£5K</div><div class="mini-stat-lbl">Scholarship</div></div>
+      </div>
+      <!-- contact bar -->
+      <div style="width:280px;margin-top:12px;display:flex;flex-direction:column;gap:6px">
+        <a href="mailto:roshinichandramohan9395@gmail.com" style="display:flex;align-items:center;gap:8px;font-size:.72rem;color:var(--w40);text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;transition:border-color .2s" onmouseover="this.style.borderColor='var(--border-s)'" onmouseout="this.style.borderColor='var(--border)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          roshinichandramohan9395@gmail.com
+        </a>
+        <div style="display:flex;gap:6px">
+          <div style="flex:1;font-size:.72rem;color:var(--w40);background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;display:flex;align-items:center;gap:6px">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            Rugby, UK
+          </div>
+          <a href="https://www.linkedin.com/in/roshini-chandramohan-a2aaa7135/" target="_blank" rel="noopener" style="flex:1;font-size:.72rem;color:var(--w40);background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:7px 12px;display:flex;align-items:center;gap:6px;text-decoration:none">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- TIMELINE -->
+  <div class="tl-wrap">
+    <p class="section-label">Career &amp; Education Milestones</p>
+    <div class="tl-grid">
+      <div class="tl-year"><span class="yr-badge">2023 – Now</span></div>
+      <div class="tl-items">
+        <div class="tl-item">
+          <div class="tl-title">Data Analyst · AtkinsRealis</div>
+          <div class="tl-sub">Designs and maintains analytics systems across multiple infrastructure portfolios to support 5- and 30-year capital investment planning. Built a defect clustering model (K-Means + DBSCAN) across <strong style="color:var(--cyan)">250,000+ inspection records</strong>, identifying failure-mode patterns that reduced maintenance over-spend and supported contract management decisions — recognised by leadership as a significant cost-saving initiative. Delivers monthly Power BI dashboards covering NH inspection and OPM portfolio data, reducing manual reporting preparation from 3 days to under 4 hours through Python and PowerQuery automation.</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:18px"></div>
+    <div class="tl-grid">
+      <div class="tl-year"><span class="yr-badge">2022–2023</span></div>
+      <div class="tl-items">
+        <div class="tl-item">
+          <div class="tl-title">M.Sc. Data Analytics · Aston University <span style="color:var(--cyan);font-size:.72rem">(Merit)</span></div>
+          <div class="tl-sub">Awarded the <strong style="color:var(--cyan)">£5,000 Global Excellence Scholarship</strong>. Focused on machine learning, time series forecasting, statistical inference and data engineering pipelines. Graduated with Merit.</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:18px"></div>
+    <div class="tl-grid">
+      <div class="tl-year"><span class="yr-badge">2020–2022</span></div>
+      <div class="tl-items">
+        <div class="tl-item">
+          <div class="tl-title">Data Analyst Consultant · Lifesight</div>
+          <div class="tl-sub">Led an ML-driven location analysis programme for clients across multiple geographies, combining geospatial modelling with multi-source data integration. Built and maintained Airflow-orchestrated data pipelines on GCP, reducing extraction and transformation time by approximately 60% compared to previous manual processes.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-title">PGDSE · Great Lakes Institute <span style="color:var(--cyan);font-size:.72rem">(Distinction)</span></div>
+          <div class="tl-sub"><strong style="color:var(--cyan)">Hackathon Winner</strong> — ranked first across the full cohort. Graduated with Distinction in applied machine learning and data science.</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:18px"></div>
+    <div class="tl-grid">
+      <div class="tl-year"><span class="yr-badge">2016–2018</span></div>
+      <div class="tl-items">
+        <div class="tl-item">
+          <div class="tl-title">Systems Engineer Analyst · Infosys Ltd</div>
+          <div class="tl-sub">Worked in systems engineering at one of the world's largest technology services firms, developing rigorous analytical discipline, systems-level thinking and operational process skills.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-title">B.E. Production Engineering · Anna University <span style="color:var(--cyan);font-size:.72rem">(Distinction)</span></div>
+          <div class="tl-sub">Graduated with Distinction — the foundation of an analytical career rooted in engineering precision, operations research and quantitative problem-solving at scale.</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:18px"></div>
+    <div class="tl-grid">
+      <div class="tl-year"><span class="yr-badge">2025</span></div>
+      <div class="tl-items">
+        <div class="tl-item">
+          <div class="tl-title">Financial Edge MicroDegree · Investment Banking <span style="color:var(--pink);font-size:.72rem">● In Progress</span></div>
+          <div class="tl-sub">Studying financial reporting, accounting principles and capital markets fundamentals to expand analytical capabilities into investment banking and financial advisory contexts.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- COOL PROJECTS -->
+  <div class="cool-wrap">
+    <p class="section-label">Cool Projects</p>
+    <div class="proj-cards">
+      <div class="proj-card" onclick="go('projects')">
+        <div class="proj-top">
+          <div class="proj-title">Infrastructure Portfolio Analytics · AtkinsRealis</div>
+          <button class="proj-btn">Explore →</button>
+        </div>
+        <p class="proj-desc">Architected a suite of intelligent BI systems and ML-powered criticality models spanning multiple high-value infrastructure portfolios — directly shaping 5- and 30-year capital investment programmes worth tens of millions of pounds.</p>
+        <div class="proj-tags"><span class="proj-tag">Power BI</span><span class="proj-tag">Python</span><span class="proj-tag">PowerQuery</span><span class="proj-tag">Predictive Modelling</span></div>
+      </div>
+      <div class="proj-card" onclick="go('casestudy')">
+        <div class="proj-top">
+          <div class="proj-title">Defect Clustering · £M Cost Savings Model</div>
+          <button class="proj-btn">Case Study →</button>
+        </div>
+        <p class="proj-desc">Engineered a machine learning solution that exposed hidden failure patterns across thousands of assets — eliminating contractual over-exposure and unlocking <strong style="color:var(--cyan)">millions in operational savings</strong>. Named a landmark project by AtkinsRealis senior leadership.</p>
+        <div class="proj-tags"><span class="proj-tag">K-Means</span><span class="proj-tag">DBSCAN</span><span class="proj-tag">Scikit-learn</span><span class="proj-tag">SQL</span></div>
+      </div>
+      <div class="proj-card" onclick="go('projects')">
+        <div class="proj-top">
+          <div class="proj-title">Client Location Optimisation · Lifesight</div>
+          <button class="proj-btn">Explore →</button>
+        </div>
+        <p class="proj-desc">Directed a high-stakes ML-driven programme that transformed client location strategy across multiple geographies — fusing advanced statistical modelling with multi-source data integration to generate precise, commercially valuable intelligence.</p>
+        <div class="proj-tags"><span class="proj-tag">Predictive ML</span><span class="proj-tag">GCP</span><span class="proj-tag">Airflow</span><span class="proj-tag">Data Mining</span></div>
+      </div>
+      <div class="proj-card" onclick="go('casestudy')">
+        <div class="proj-top">
+          <div class="proj-title">MSc Research · Aston University</div>
+          <button class="proj-btn">Case Study →</button>
+        </div>
+        <p class="proj-desc">Merit-awarded MSc research backed by a <strong style="color:var(--cyan)">£5,000 Global Excellence Scholarship</strong> — applying advanced time series forecasting and ML techniques to solve real-world analytical challenges at a leading UK research institution.</p>
+        <div class="proj-tags"><span class="proj-tag">Time Series</span><span class="proj-tag">Regression</span><span class="proj-tag">NumPy</span><span class="proj-tag">Seaborn</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section class="page" id="projects">
+  <div class="proj-layout">
+    <aside class="proj-sidebar">
+      <div style="padding-top:8px">
+        <div class="sb-group">
+          <div class="sb-title">Sectors</div>
+          <div class="sb-item on" onclick="sbPick(this)"><span class="sb-dot"></span>Infrastructure</div>
+          <div class="sb-item" onclick="sbPick(this)"><span class="sb-dot"></span>Asset Management</div>
+          <div class="sb-item" onclick="sbPick(this)"><span class="sb-dot"></span>Investment Banking</div>
+          <div class="sb-item" onclick="sbPick(this)"><span class="sb-dot"></span>Location Analytics</div>
+          <div class="sb-item" onclick="sbPick(this)"><span class="sb-dot"></span>Operations Research</div>
+        </div>
+        <div class="sb-group">
+          <div class="sb-title">Tools Used</div>
+          <div class="sb-item on"><span class="sb-dot"></span>Power BI</div>
+          <div class="sb-item"><span class="sb-dot"></span>Python (Sklearn)</div>
+          <div class="sb-item"><span class="sb-dot"></span>SQL / MySQL</div>
+          <div class="sb-item"><span class="sb-dot"></span>Airflow / GCP</div>
+          <div class="sb-item"><span class="sb-dot"></span>Tableau</div>
+        </div>
+        <div class="sb-group">
+          <div class="sb-title">Outcomes</div>
+          <div class="sb-item on"><span class="sb-dot"></span>£M+ cost savings</div>
+          <div class="sb-item"><span class="sb-dot"></span>£5K scholarship</div>
+          <div class="sb-item"><span class="sb-dot"></span>Hackathon winner</div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="proj-main">
+      <h1 class="page-heading">PROJECTS</h1>
+      <p class="page-sub">Infrastructure analytics, predictive modelling and BI automation — AtkinsRealis · Lifesight · Aston University</p>
+
+      <!-- Main dashboard card -->
+      <div class="dash-card">
+        <div class="dash-inner">
+          <div>
+            <p class="dash-label">Portfolio Performance — Q1–Q4</p>
+            <canvas id="proj-chart" height="200"></canvas>
+          </div>
+          <div>
+            <p class="dash-label">Geographic Distribution</p>
+            <canvas id="map-chart" height="200" style="border-radius:10px;border:1px solid var(--border)"></canvas>
+          </div>
+        </div>
+        <!-- Case Study overlay -->
+        <div class="cs-overlay" id="cso">
+          <button class="cs-close" onclick="document.getElementById('cso').style.display='none'">✕</button>
+          <div class="cs-eyebrow">Case Study · AtkinsRealis</div>
+          <div class="cs-title">Defect Clustering &amp;<br>Portfolio Optimisation</div>
+          <p class="cs-desc">A machine learning breakthrough that exposed hidden failure patterns across thousands of infrastructure assets, eliminated contractual over-exposure and unlocked millions in operational savings — acclaimed internally as a landmark commercial achievement.</p>
+          <div style="font-size:.72rem;color:var(--cyan);margin-bottom:10px;font-weight:600">Leadership Recognition</div>
+          <div style="font-size:.71rem;color:var(--w40);margin-bottom:12px">Named a landmark project by AtkinsRealis senior leadership for delivering millions in cost savings</div>
+          <div class="cs-metrics">
+            <div><div class="cs-metric-val">£5K</div><div class="cs-metric-lbl">Scholarship</div></div>
+            <div><div class="cs-metric-val">6+</div><div class="cs-metric-lbl">Years Exp.</div></div>
+            <div><div class="cs-metric-val">£M+</div><div class="cs-metric-lbl">Cost Saved</div></div>
+          </div>
+          <div class="cs-tags">
+            <span class="cs-tag">K-Means</span>
+            <span class="cs-tag">DBSCAN</span>
+            <span class="cs-tag">Power BI</span>
+            <span class="cs-tag">Python</span>
+            <button class="btn" style="font-size:.7rem;padding:5px 13px;margin-left:auto" onclick="go('casestudy')">Full Study →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mini project cards -->
+      <div class="mini-cards">
+        <div class="mini-c" onclick="go('casestudy')">
+          <div class="mini-c-title">Defect Clustering Model</div>
+          <div class="mini-c-sub">Scikit-learn · Python · SQL</div>
+          <canvas id="mc1" height="40" style="margin-top:10px;width:100%"></canvas>
+        </div>
+        <div class="mini-c">
+          <div class="mini-c-title">Portfolio Power BI Suite</div>
+          <div class="mini-c-sub">Power BI · PowerQuery · DAX</div>
+          <canvas id="mc2" height="40" style="margin-top:10px;width:100%"></canvas>
+        </div>
+        <div class="mini-c">
+          <div class="mini-c-title">Location Optimisation ML</div>
+          <div class="mini-c-sub">Python · Airflow · GCP</div>
+          <canvas id="mc3" height="40" style="margin-top:10px;width:100%"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CASE STUDY ===================== -->
+<section class="page" id="casestudy">
+  <div class="cs-layout">
+    <div>
+      <h1 class="page-heading">CASE STUDY</h1>
+      <p style="font-size:.8rem;color:var(--w40);margin-bottom:32px">Defect Clustering &amp; Infrastructure Portfolio Optimisation · AtkinsRealis · 2023–Present</p>
+
+      <div class="cs-section">
+        <div class="section-label">Problem Statement</div>
+        <div class="cs-body">
+          <p>AtkinsRealis manages large-scale infrastructure portfolios requiring structured defect analysis, lifecycle planning and multi-year budget forecasting across thousands of assets.</p>
+          <p>Reporting was manual and fragmented — asset data lived in separate systems, creating inconsistencies in maintenance prioritisation and limiting confidence in long-term planning. The objective was to consolidate data across sources, automate monthly reporting, and build models to support capital investment decisions.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="section-label">Data Sources</div>
+        <div class="cs-body">
+          <p>NH inspection databases · OPM operational datasets · Enterprise asset registry · Defect management logs · Contractual exposure records · Multi-year historical maintenance spend · Portfolio lifecycle planning systems</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="section-label">Methodology</div>
+        <div class="cs-body">
+          <p>Applied K-Means and DBSCAN clustering across <strong style="color:var(--cyan)">250,000+ inspection records</strong> to identify distinct failure-mode groups and assign criticality scores to each asset category. Assets in the highest-criticality cluster showed significantly elevated replacement urgency compared to portfolio average.</p>
+          <p>Built predictive classification models to support 5- and 30-year capital investment planning. Automated monthly reporting using Python and PowerQuery, replacing manual Excel-based processes. Delivered live Power BI dashboards to senior stakeholders covering NH inspection and OPM portfolio data. Established data governance processes to standardise how datasets are validated and maintained across teams.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="section-label">Key Intelligence Gathered</div>
+        <div class="cs-body">
+          <p>Clustering revealed 3 distinct failure-mode groups previously treated as uniform — a blind spot in maintenance scheduling. Assets in the highest-criticality cluster showed 4.2× greater replacement urgency than average, enabling more precise budget allocation for investment programmes that had previously relied on manual estimation.</p>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="section-label">Key Outcomes</div>
+        <div>
+          <div class="insight-row"><span class="i-dot"></span><span class="i-text">Defect clustering identified maintenance allocation inefficiencies across the portfolio — recognised by AtkinsRealis leadership as a <strong style="color:var(--cyan)">significant cost-saving initiative</strong></span></div>
+          <div class="insight-row"><span class="i-dot"></span><span class="i-text">Predictive criticality models now support 5- and 30-year capital investment strategies across multiple infrastructure portfolios</span></div>
+          <div class="insight-row"><span class="i-dot"></span><span class="i-text">Python &amp; PowerQuery automation reduced monthly reporting preparation from <strong style="color:var(--cyan)">3 days to under 4 hours</strong></span></div>
+          <div class="insight-row"><span class="i-dot"></span><span class="i-text">Monthly Power BI dashboards for NH inspection and OPM data consistently rated by stakeholders for accuracy and clarity</span></div>
+          <div class="insight-row"><span class="i-dot"></span><span class="i-text">Data governance framework established consistent standards for dataset validation across portfolio teams</span></div>
+        </div>
+      </div>
+
+      <div class="cs-section">
+        <div class="section-label">Performance Metrics</div>
+        <div class="metrics-2x2">
+          <div class="metric-box"><div class="metric-box-val" style="color:var(--pink)">~80%</div><div class="metric-box-lbl">Reduction in reporting preparation time</div></div>
+          <div class="metric-box"><div class="metric-box-val">250K+</div><div class="metric-box-lbl">Inspection records analysed</div></div>
+          <div class="metric-box"><div class="metric-box-val" style="color:var(--purple-l)">4.2×</div><div class="metric-box-lbl">Criticality ratio — high vs average assets</div></div>
+          <div class="metric-box"><div class="metric-box-val" style="color:var(--purple-l)">3</div><div class="metric-box-lbl">Distinct failure-mode clusters identified</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT sticky panel -->
+    <div class="cs-right-sticky">
+      <div class="dash-prev">
+        <p style="font-size:.72rem;color:var(--w40);margin-bottom:14px">Portfolio Analytics — Dashboard Preview</p>
+        <canvas id="cs-chart" height="170" style="width:100%"></canvas>
+        <div class="glow-line" style="margin:14px 0"></div>
+        <div class="kpi-grid">
+          <div><div class="kpi-lbl">Scholarship</div><div class="kpi-val" style="color:var(--cyan)">£5,000</div></div>
+          <div><div class="kpi-lbl">Experience</div><div class="kpi-val">6+ yrs</div></div>
+          <div><div class="kpi-lbl">Cost Savings</div><div class="kpi-val" style="color:var(--green)">£M+</div></div>
+          <div><div class="kpi-lbl">Degree Grade</div><div class="kpi-val">Merit</div></div>
+        </div>
+      </div>
+      <!-- Awards card -->
+      <div class="glass" style="padding:18px">
+        <p class="section-label" style="margin-bottom:12px">Awards &amp; Achievements</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="font-size:1.1rem">🏆</span>
+            <div>
+              <div style="font-size:.8rem;font-weight:700;color:var(--w)">£5,000 Global Excellence Scholarship</div>
+              <div style="font-size:.72rem;color:var(--w40)">Aston University — awarded to the most exceptional international talent</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="font-size:1.1rem">🥇</span>
+            <div>
+              <div style="font-size:.8rem;font-weight:700;color:var(--w)">Hackathon Champion</div>
+              <div style="font-size:.72rem;color:var(--w40)">Great Lakes PGDSE — outperformed every competitor to claim first place</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <span style="font-size:1.1rem">📊</span>
+            <div>
+              <div style="font-size:.8rem;font-weight:700;color:var(--w)">Leadership Recognition · AtkinsRealis</div>
+              <div style="font-size:.72rem;color:var(--w40)">Defect clustering programme acclaimed as a landmark project — millions saved</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="glass" style="padding:18px">
+        <p class="section-label" style="margin-bottom:12px">Tools &amp; Stack</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <span class="tag">Python</span><span class="tag">Power BI</span>
+          <span class="tag">SQL / MySQL</span><span class="tag">Scikit-learn</span>
+          <span class="tag">Airflow</span><span class="tag">GCP</span>
+          <span class="tag">Tableau</span><span class="tag">PowerQuery</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BLOG ===================== -->
+<section class="page" id="blog">
+  <div class="blog-wrap">
+    <h1 class="page-heading">RESEARCH &amp; BLOG</h1>
+    <p class="page-sub">Technical deep-dives on AI, ML systems, data engineering and financial analytics — by Roshini Chandramohan, Data Analyst · AtkinsRealis</p>
+    <div style="display:grid;grid-template-columns:190px 1fr;gap:24px;align-items:start;margin-top:8px">
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;position:sticky;top:90px">
+        <div class="section-label" style="margin-bottom:14px">Filter</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <button class="fbtn on" onclick="filt(this,'all')">All Articles</button>
+          <button class="fbtn" onclick="filt(this,'ai')">AI Strategy</button>
+          <button class="fbtn" onclick="filt(this,'ml')">ML Systems</button>
+          <button class="fbtn" onclick="filt(this,'de')">Data Engineering</button>
+          <button class="fbtn" onclick="filt(this,'nlp')">NLP</button>
+          <button class="fbtn" onclick="filt(this,'fin')">Financial Analytics</button>
+          <button class="fbtn" onclick="filt(this,'mlops')">MLOps</button>
+          <button class="fbtn" onclick="filt(this,'sql')">SQL</button>
+        </div>
+        <div style="margin-top:14px;background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:8px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:.4;flex-shrink:0"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" placeholder="Search..." oninput="searchBlog(this.value)" style="background:none;border:none;outline:none;color:var(--w);font-size:.8rem;width:100%">
+        </div>
+      </div>
+      <div class="blog-grid" id="blog-grid">
+
+      <div class="bcard" data-cat="ai" data-search="why ai projects fail data quality mlops business alignment organizational" onclick="openArt(1)">
+        <div class="bcard-icon" style="background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(0,145,178,.3))">💡</div>
+        <div class="bcard-body">
+          <div class="bcard-meta"><span class="bcard-cat">AI Strategy</span><span class="bcard-date">Nov 2024</span></div>
+          <div class="bcard-title">Why 90% of AI Projects Fail in Companies</div>
+          <div class="bcard-tags"><span class="bcard-tag">Data Quality</span><span class="bcard-tag">MLOps</span><span class="bcard-tag">Business</span></div>
+          <p class="bcard-exc">AI is everywhere — yet most projects quietly fail. The real blockers aren't algorithms; they're data quality, deployment complexity and organisational resistance.</p>
+          <div class="bcard-foot"><div class="bcard-stats"><span class="bcard-stat">2,400 views</span><span class="bcard-readtime">⏱ 8 min</span></div><span class="read">Read Article →</span></div>
+        </div>
+      </div>
+
+      <div class="bcard" data-cat="ml" data-search="uber machine learning eta surge pricing route optimization fraud detection" onclick="openArt(2)">
+        <div class="bcard-icon" style="background:linear-gradient(135deg,rgba(0,145,178,.3),rgba(52,211,153,.3))">🚗</div>
+        <div class="bcard-body">
+          <div class="bcard-meta"><span class="bcard-cat">ML Systems</span><span class="bcard-date">Oct 2024</span></div>
+          <div class="bcard-title">How Uber Uses Machine Learning Every Second</div>
+          <div class="bcard-tags"><span class="bcard-tag">Real-Time ML</span><span class="bcard-tag">Deep Learning</span><span class="bcard-tag">At Scale</span></div>
+          <p class="bcard-exc">Every Uber ride triggers dozens of ML models — ETA prediction, surge pricing, route optimisation, fraud detection. Inside the platform that moves millions.</p>
+          <div class="bcard-foot"><div class="bcard-stats"><span class="bcard-stat">3,100 views</span><span class="bcard-readtime">⏱ 9 min</span></div><span class="read">Read Article →</span></div>
+        </div>
+      </div>
+
+      <div class="bcard hot" data-cat="de" data-search="etl airflow dbt pipeline medallion architecture bronze silver gold" onclick="openArt(3)">
+        <div class="bcard-icon" style="background:linear-gradient(135deg,rgba(212,86,26,.2),rgba(8,145,178,.2))">⚙️</div>
+        <div class="bcard-body">
+          <div class="bcard-meta"><span class="bcard-cat">Data Engineering</span><span class="bcard-date">Sep 2024</span></div>
+          <div class="bcard-title">Building Real-Time ETL Pipelines with Airflow &amp; dbt</div>
+          <div class="bcard-tags"><span class="bcard-tag">Apache Airflow</span><span class="bcard-tag">dbt</span><span class="bcard-tag">Python</span></div>
+          <p class="bcard-exc">Production-grade DAG design patterns, sensor orchestration, dbt model layering and failure recovery strategies for financial data pipelines.</p>
+          <div class="bcard-foot"><div class="bcard-stats"><span class="bcard-stat">1,850 views</span><span class="bcard-readtime">⏱ 11 min</span></div><span class="read">Read Article →</span></div>
+        </div>
+      </div>
+
+      <div class="bcard" data-cat="fin" data-search="power bi dax optimization measures calculated columns query folding" onclick="openArt(4)">
+        <div class="bcard-icon" style="background:linear-gradient(135deg,rgba(236,72,153,.25),rgba(124,58,237,.25))">📊</div>
+        <div class="bcard-body">
+          <div class="bcard-meta"><span class="bcard-cat">BI Tools</span><span class="bcard-date">Aug 2024</span></div>
+          <div class="bcard-title">Power BI DAX Optimization: Sub-Second at Scale</div>
+          <div class="bcard-tags"><span class="bcard-tag">DAX</span><span class="bcard-tag">Power BI</span><span class="bcard-tag">Performance</span></div>
+          <p class="bcard-exc">Deep-dive into measure vs calculated column performance, query folding, SUMX pitfalls, and DAX Studio profiling on 100M-row datasets.</p>
+          <div class="bcard-foot"><div class="bcard-stats"><span class="bcard-stat">2,200 views</span><span class="bcard-readtime">⏱ 10 min</span></div><span class="read">Read Article →</span></div>
+        </div>
+      </div>
+
+      <div class="bcard" data-cat="nlp" data-search="finbert nlp sentiment analysis earnings calls transformers huggingface financial" onclick="openArt(5)">
+        <div class="bcard-icon" style="background:linear-gradient(135deg,rgba(52,211,153,.25),rgba(0,145,178,.25))">🧠</div>
+        <div class="bcard-body">
+          <div class="bcard-meta"><span class="bcard-cat">NLP</span><span class="bcard-date">Jul 2024</span></div>
+          <div class="bcard-title">FinBERT: NLP Sentiment on Financial Earnings Calls</div>
+          <div class="bcard-tags"><span class="bcard-tag">FinBERT</span><span class="bcard-tag">HuggingFace</span><span class="bcard-tag">Python</span></div>
+          <p class="bcard-exc">Fine-tuning FinBERT on earnings call transcripts to extract bullish/bearish signals with 87% accuracy. End-to-end pipeline with HuggingFace Transformers.</p>
+          <div class="bcard-foot"><div class="bcard-stats"><span class="bcard-stat">1,640 views</span><span class="bcard-readtime">⏱ 12 min</span></div><span class="read">Read Article →</span></div>
+        </div>
+      </div>
+
+      <div class="bcard" data-cat="fin" data-search="monte carlo simulation portfolio risk var value at risk python numpy" onclick="openArt(6)">
+        <div class="bcard-icon" style="background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(236,72,153,.25))">📉</div>
+        <div class="bcard-body">
+          <div class="bcard-meta"><span class="bcard-cat">Financial Analytics</span><span class="bcard-date">Jun 2024</span></div>
+          <div class="bcard-title">Monte Carlo Simulation for Portfolio VaR in Python</div>
+          <div class="bcard-tags"><span class="bcard-tag">Monte Carlo</span><span class="bcard-tag">VaR</span><span class="bcard-tag">NumPy</span></div>
+          <p class="bcard-exc">Implementing 10,000-path Monte Carlo simulations to compute 95%/99% Value-at-Risk, stress-testing portfolios against fat-tail scenarios with pure NumPy.</p>
+          <div class="bcard-foot"><div class="bcard-stats"><span class="bcard-stat">1,980 views</span><span class="bcard-readtime">⏱ 13 min</span></div><span class="read">Read Article →</span></div>
+        </div>
+      </div>
+
+      <div class="bcard" data-cat="de" data-search="medallion architecture delta lake bronze silver gold data quality dbt" onclick="openArt(7)">
+        <div class="bcard-icon" style="background:linear-gradient(135deg,rgba(212,86,26,.18),rgba(52,211,153,.18))">🏗️</div>
+        <div class="bcard-body">
+          <div class="bcard-meta"><span class="bcard-cat">Data Engineering</span><span class="bcard-date">May 2024</span></div>
+          <div class="bcard-title">Medallion Architecture: Bronze → Silver → Gold</div>
+          <div class="bcard-tags"><span class="bcard-tag">Delta Lake</span><span class="bcard-tag">dbt</span><span class="bcard-tag">Architecture</span></div>
+          <p class="bcard-exc">Designing a production medallion data lakehouse — raw ingestion through curated gold layer, schema evolution, data quality contracts and lineage tracking.</p>
+          <div class="bcard-foot"><div class="bcard-stats"><span class="bcard-stat">1,420 views</span><span class="bcard-readtime">⏱ 10 min</span></div><span class="read">Read Article →</span></div>
+        </div>
+      </div>
+
+      <div class="bcard" data-cat="ml" data-search="feature engineering churn prediction rolling lag encoding scikit-learn pipeline" onclick="openArt(8)">
+        <div class="bcard-icon" style="background:linear-gradient(135deg,rgba(236,72,153,.2),rgba(0,145,178,.2))">🔬</div>
+        <div class="bcard-body">
+          <div class="bcard-meta"><span class="bcard-cat">ML Engineering</span><span class="bcard-date">Apr 2024</span></div>
+          <div class="bcard-title">Feature Engineering for Financial Churn Models</div>
+          <div class="bcard-tags"><span class="bcard-tag">Feature Eng.</span><span class="bcard-tag">scikit-learn</span><span class="bcard-tag">XGBoost</span></div>
+          <p class="bcard-exc">Rolling aggregations, lag features, target encoding and temporal leakage prevention — the feature engineering playbook that lifted AUC from 0.71 to 0.89.</p>
+          <div class="bcard-foot"><div class="bcard-stats"><span class="bcard-stat">1,310 views</span><span class="bcard-readtime">⏱ 11 min</span></div><span class="read">Read Article →</span></div>
+        </div>
+      </div>
+
+      <div class="bcard" data-cat="mlops" data-search="mlops fastapi docker production deployment monitoring jupyter notebook" onclick="openArt(9)">
+        <div class="bcard-icon" style="background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(212,86,26,.2))">🚀</div>
+        <div class="bcard-body">
+          <div class="bcard-meta"><span class="bcard-cat">MLOps</span><span class="bcard-date">Mar 2024</span></div>
+          <div class="bcard-title">MLOps: Jupyter Notebook to FastAPI Production</div>
+          <div class="bcard-tags"><span class="bcard-tag">FastAPI</span><span class="bcard-tag">Docker</span><span class="bcard-tag">Prometheus</span></div>
+          <p class="bcard-exc">The full MLOps lifecycle: serialising models, building FastAPI inference endpoints, Dockerising, CI/CD with GitHub Actions, and Prometheus monitoring in production.</p>
+          <div class="bcard-foot"><div class="bcard-stats"><span class="bcard-stat">2,050 views</span><span class="bcard-readtime">⏱ 14 min</span></div><span class="read">Read Article →</span></div>
+        </div>
+      </div>
+
+      <div class="bcard" data-cat="sql" data-search="sql window functions partition by rows between moving average running total finance" onclick="openArt(10)">
+        <div class="bcard-icon" style="background:linear-gradient(135deg,rgba(52,211,153,.2),rgba(124,58,237,.2))">🗄️</div>
+        <div class="bcard-body">
+          <div class="bcard-meta"><span class="bcard-cat">SQL</span><span class="bcard-date">Feb 2024</span></div>
+          <div class="bcard-title">Advanced SQL Window Functions for Financial Analytics</div>
+          <div class="bcard-tags"><span class="bcard-tag">Window Functions</span><span class="bcard-tag">CTEs</span><span class="bcard-tag">SQL Server</span></div>
+          <p class="bcard-exc">PARTITION BY, ROWS BETWEEN, running portfolio totals, 30/90-day moving averages, YoY cohort comparisons — with real financial query patterns.</p>
+          <div class="bcard-foot"><div class="bcard-stats"><span class="bcard-stat">2,780 views</span><span class="bcard-readtime">⏱ 9 min</span></div><span class="read">Read Article →</span></div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="page" id="contact">
+  <div class="contact-layout">
+
+    <!-- LEFT: Form -->
+    <div>
+      <div class="contact-form-wrap" id="form-card">
+
+        <!-- Form state -->
+        <div id="form-state">
+          <h2 class="contact-form-title">Get in Touch</h2>
+          <p class="contact-form-sub">Available for data analytics roles, freelance projects and collaborations.<br>I usually respond within 24 hours.</p>
+
+          <form id="contact-form" novalidate onsubmit="submitForm(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="f-name">Your Name</label>
+                <input class="form-input" id="f-name" type="text" placeholder="Jane Smith" autocomplete="name">
+                <div class="form-err" id="err-name">Please enter your name.</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="f-email">Email Address</label>
+                <input class="form-input" id="f-email" type="email" placeholder="jane@company.com" autocomplete="email">
+                <div class="form-err" id="err-email">Please enter a valid email address.</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f-subject">Enquiry Type</label>
+              <select class="form-select" id="f-subject">
+                <option value="" disabled selected>Select a topic…</option>
+                <option value="job">Job Opportunity / Role</option>
+                <option value="freelance">Freelance / Contract Project</option>
+                <option value="collab">Research Collaboration</option>
+                <option value="consulting">Data Consulting</option>
+                <option value="speaking">Speaking / Blog</option>
+                <option value="other">Other</option>
+              </select>
+              <div class="form-err" id="err-subject">Please select an enquiry type.</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f-company">Company / Organisation <span style="color:var(--w40);font-size:.65rem;text-transform:none;letter-spacing:0">(optional)</span></label>
+              <input class="form-input" id="f-company" type="text" placeholder="Acme Analytics Ltd" autocomplete="organization">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="f-msg">Message</label>
+              <textarea class="form-textarea" id="f-msg" placeholder="Tell me about your project, role or question…" maxlength="1000" oninput="updateCounter(this)"></textarea>
+              <div class="char-counter"><span id="char-count">0</span> / 1000</div>
+              <div class="form-err" id="err-msg">Please write a message (at least 20 characters).</div>
+            </div>
+
+            <!-- Honeypot (hidden spam trap) -->
+            <input type="text" id="f-hp" style="display:none" tabindex="-1" autocomplete="off">
+
+            <button class="form-submit" id="form-submit-btn" type="submit">
+              <span id="btn-label">Send Message →</span>
+              <div class="spin" id="btn-spin"></div>
+            </button>
+          </form>
+        </div>
+
+        <!-- Success state -->
+        <div class="contact-success" id="success-state">
+          <div class="success-icon">✓</div>
+          <div class="success-title">Message Sent!</div>
+          <p class="success-sub">Thanks for reaching out. I'll get back to you at your email address within 24 hours.</p>
+          <button class="btn" onclick="resetForm()">Send Another Message</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Info panel -->
+    <div class="contact-info">
+
+      <!-- Availability -->
+      <div class="info-card">
+        <div class="info-card-title">Availability</div>
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+          <span class="avail-dot"></span>
+          <div>
+            <div style="font-size:.82rem;font-weight:700;color:var(--w)">Open to Opportunities</div>
+            <div style="font-size:.7rem;color:var(--w40);margin-top:2px">Data Analyst · Contract · Freelance</div>
+          </div>
+        </div>
+        <div style="padding-top:14px;font-size:.78rem;color:var(--w40);line-height:1.65">
+          Based in <strong style="color:var(--w)">Rugby, United Kingdom</strong>. Open to remote, hybrid and on-site roles across the UK.
+        </div>
+      </div>
+
+      <!-- Contact details -->
+      <div class="info-card">
+        <div class="info-card-title">Contact Details</div>
+        <div class="info-row">
+          <div class="info-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-val"><a href="mailto:roshinichandramohan9395@gmail.com">roshinichandramohan9395@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-val"><a href="tel:+447776695711">+44 7776 695711</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-val">Rugby, United Kingdom</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div>
+            <div class="info-label">LinkedIn</div>
+            <div class="info-val"><a href="https://www.linkedin.com/in/roshini-chandramohan-a2aaa7135/" target="_blank" rel="noopener">linkedin.com/in/roshini-chandramohan-a2aaa7135</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills snapshot -->
+      <div class="info-card" id="skills-card">
+        <div class="info-card-title">Skills Snapshot</div>
+        <div class="skill-chart">
+          <div class="skill-bar-row"><div class="skill-bar-label"><span>Python / Pandas</span><span>95%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="95"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-label"><span>Power BI / DAX</span><span>92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="92"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-label"><span>SQL / MySQL</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="90"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-label"><span>Machine Learning</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="85"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-label"><span>Tableau</span><span>82%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="82"></div></div></div>
+          <div class="skill-bar-row"><div class="skill-bar-label"><span>Airflow / GCP</span><span>75%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="75"></div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STUDY ===================== -->
+<section class="page" id="study">
+  <div class="study-layout">
+
+    <!-- SIDEBAR -->
+    <div class="proj-sidebar" style="padding:38px 20px">
+      <p class="section-label" style="margin-bottom:20px">Study Materials</p>
+
+      <div class="sb-group">
+        <div class="sb-title">Statistics</div>
+        <div class="sb-item on" style="display:flex;align-items:center">
+          <span class="sb-dot" style="background:var(--cyan)"></span>Descriptive Statistics
+        </div>
+        <div class="sb-item topic-locked" style="display:flex;align-items:center">
+          <span class="sb-dot"></span>Inferential Statistics<span class="topic-soon">Soon</span>
+        </div>
+        <div class="sb-item topic-locked" style="display:flex;align-items:center">
+          <span class="sb-dot"></span>Probability Basics<span class="topic-soon">Soon</span>
+        </div>
+        <div class="sb-item topic-locked" style="display:flex;align-items:center">
+          <span class="sb-dot"></span>Hypothesis Testing<span class="topic-soon">Soon</span>
+        </div>
+        <div class="sb-item topic-locked" style="display:flex;align-items:center">
+          <span class="sb-dot"></span>Regression Analysis<span class="topic-soon">Soon</span>
+        </div>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-title">Python</div>
+        <div class="sb-item topic-locked" style="display:flex;align-items:center">
+          <span class="sb-dot"></span>Pandas Essentials<span class="topic-soon">Soon</span>
+        </div>
+        <div class="sb-item topic-locked" style="display:flex;align-items:center">
+          <span class="sb-dot"></span>NumPy for Data<span class="topic-soon">Soon</span>
+        </div>
+        <div class="sb-item topic-locked" style="display:flex;align-items:center">
+          <span class="sb-dot"></span>Matplotlib / Seaborn<span class="topic-soon">Soon</span>
+        </div>
+      </div>
+
+      <div class="sb-group">
+        <div class="sb-title">SQL</div>
+        <div class="sb-item topic-locked" style="display:flex;align-items:center">
+          <span class="sb-dot"></span>Window Functions<span class="topic-soon">Soon</span>
+        </div>
+        <div class="sb-item topic-locked" style="display:flex;align-items:center">
+          <span class="sb-dot"></span>Aggregations &amp; CTEs<span class="topic-soon">Soon</span>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:14px">
+        <div style="font-size:.68rem;color:var(--w40);margin-bottom:6px">YOUR PROGRESS</div>
+        <div style="font-size:.82rem;font-weight:700;color:var(--w);margin-bottom:2px">1 / 10 lessons</div>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:10%"></div></div>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="study-main">
+
+      <div class="lesson-badge">📊 Statistics · Lesson 1</div>
+      <h1 class="lesson-h1">Descriptive Statistics</h1>
+      <p class="lesson-intro">Descriptive statistics summarise and describe the key features of a dataset — without making predictions or generalisations beyond the data you have. Before any model, any dashboard, any insight: you describe the data first.</p>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:36px">
+        <span class="tag">Beginner</span><span class="tag">~15 min read</span><span class="tag">Python examples</span><span class="tag">Real-world context</span>
+      </div>
+
+      <!-- ── 1. CENTRAL TENDENCY ── -->
+      <div class="lesson-h2">Measures of Central Tendency</div>
+      <p class="lesson-p">Central tendency tells you where the "middle" or "typical value" of your data sits. There are three main measures — and choosing the wrong one is one of the most common mistakes in data analysis.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-card-title">Mean (Average)</div>
+          <div class="stat-card-body">Sum all values, divide by the count. Pulled by extreme values (outliers).</div>
+          <div class="formula-box" style="font-size:.8rem;text-align:left;padding:12px 14px">x̄ = Σxᵢ / n</div>
+          <div class="stat-card-body" style="margin-top:6px">✓ Use when: data is symmetric, no extreme outliers.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Median</div>
+          <div class="stat-card-body">The middle value when data is sorted. Robust to outliers.</div>
+          <div class="formula-box" style="font-size:.8rem;text-align:left;padding:12px 14px">Middle value of sorted data</div>
+          <div class="stat-card-body" style="margin-top:6px">✓ Use when: data is skewed (e.g. salaries, house prices).</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Mode</div>
+          <div class="stat-card-body">The most frequently occurring value. A dataset can have more than one mode.</div>
+          <div class="formula-box" style="font-size:.8rem;text-align:left;padding:12px 14px">Most frequent value(s)</div>
+          <div class="stat-card-body" style="margin-top:6px">✓ Use when: categorical data or finding peaks in distributions.</div>
+        </div>
+      </div>
+
+      <div class="tip-box"><strong>Real-world example:</strong> UK average salary is often quoted as the mean (~£35k) but the median (~£28k) better represents a "typical" worker because a small number of very high earners pull the mean up.</div>
+
+      <!-- ── 2. SPREAD ── -->
+      <div class="lesson-h2">Measures of Spread (Variability)</div>
+      <p class="lesson-p">Two datasets can share the same mean but behave completely differently. Spread tells you how far values deviate from the centre.</p>
+
+      <table class="study-table">
+        <thead><tr><th>Measure</th><th>Formula</th><th>Strengths</th><th>Weaknesses</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--w);font-weight:700">Range</td>
+            <td style="font-family:monospace;color:var(--cyan)">Max − Min</td>
+            <td>Simple, instant calculation</td>
+            <td>Heavily affected by a single outlier</td>
+          </tr>
+          <tr>
+            <td style="color:var(--w);font-weight:700">Variance (σ²)</td>
+            <td style="font-family:monospace;color:var(--cyan)">Σ(xᵢ − x̄)² / n</td>
+            <td>Uses every data point; foundation for many tests</td>
+            <td>Units are squared, hard to interpret directly</td>
+          </tr>
+          <tr>
+            <td style="color:var(--w);font-weight:700">Std Deviation (σ)</td>
+            <td style="font-family:monospace;color:var(--cyan)">√Variance</td>
+            <td>Same units as the data; intuitive</td>
+            <td>Still sensitive to outliers</td>
+          </tr>
+          <tr>
+            <td style="color:var(--w);font-weight:700">IQR</td>
+            <td style="font-family:monospace;color:var(--cyan)">Q3 − Q1</td>
+            <td>Outlier-resistant; describes the middle 50%</td>
+            <td>Ignores the tails of the distribution</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="warn-box"><strong>Watch out:</strong> When reporting standard deviation, always clarify whether you used the <em>population</em> formula (÷ n) or the <em>sample</em> formula (÷ n−1). Python's <code>pandas.std()</code> defaults to sample (ddof=1).</div>
+
+      <!-- ── 3. DISTRIBUTION SHAPE ── -->
+      <div class="lesson-h2">Distribution Shape</div>
+      <p class="lesson-p">Knowing the shape of your data tells you which statistical methods are valid to apply.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-card-title" style="color:var(--purple-l)">Symmetric / Normal</div>
+          <div style="text-align:center;font-size:2rem;padding:10px 0">⛰️</div>
+          <div class="stat-card-body">Mean ≈ Median ≈ Mode. The classic bell curve. Most parametric tests assume this shape.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title" style="color:var(--cyan)">Positive Skew (Right)</div>
+          <div style="text-align:center;font-size:2rem;padding:10px 0">📈</div>
+          <div class="stat-card-body">Long tail to the right. Mean &gt; Median. Common in income, house prices, response times.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title" style="color:var(--pink)">Negative Skew (Left)</div>
+          <div style="text-align:center;font-size:2rem;padding:10px 0">📉</div>
+          <div class="stat-card-body">Long tail to the left. Mean &lt; Median. Common in exam scores where most students do well.</div>
+        </div>
+      </div>
+
+      <div class="tip-box"><strong>Rule of thumb:</strong> If Mean &gt; Median → positively skewed. If Mean &lt; Median → negatively skewed. If Mean ≈ Median → roughly symmetric.</div>
+
+      <!-- ── 4. FIVE-NUMBER SUMMARY ── -->
+      <div class="lesson-h2">The Five-Number Summary</div>
+      <p class="lesson-p">A compact snapshot of any dataset. Together these five values define a boxplot.</p>
+
+      <div style="display:flex;gap:0;margin:16px 0;border-radius:10px;overflow:hidden;border:1px solid var(--border)">
+        <div style="flex:1;padding:16px 14px;text-align:center;background:var(--bg-card);border-right:1px solid var(--border)">
+          <div style="font-size:.66rem;color:var(--w40);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Minimum</div>
+          <div style="font-size:1.1rem;font-weight:900;color:var(--w)">Min</div>
+        </div>
+        <div style="flex:1;padding:16px 14px;text-align:center;background:var(--bg-card);border-right:1px solid var(--border)">
+          <div style="font-size:.66rem;color:var(--w40);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Q1 (25th %ile)</div>
+          <div style="font-size:1.1rem;font-weight:900;color:var(--purple-l)">Q1</div>
+        </div>
+        <div style="flex:1;padding:16px 14px;text-align:center;background:rgba(212,86,26,0.06);border-right:1px solid var(--border)">
+          <div style="font-size:.66rem;color:var(--w40);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Median (50th)</div>
+          <div style="font-size:1.1rem;font-weight:900;color:var(--cyan)">Q2</div>
+        </div>
+        <div style="flex:1;padding:16px 14px;text-align:center;background:var(--bg-card);border-right:1px solid var(--border)">
+          <div style="font-size:.66rem;color:var(--w40);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Q3 (75th %ile)</div>
+          <div style="font-size:1.1rem;font-weight:900;color:var(--purple-l)">Q3</div>
+        </div>
+        <div style="flex:1;padding:16px 14px;text-align:center;background:var(--bg-card)">
+          <div style="font-size:.66rem;color:var(--w40);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Maximum</div>
+          <div style="font-size:1.1rem;font-weight:900;color:var(--w)">Max</div>
+        </div>
+      </div>
+
+      <!-- ── 5. PYTHON CODE ── -->
+      <div class="lesson-h2">Python Implementation</div>
+      <p class="lesson-p">Using pandas and numpy — the standard toolkit for descriptive statistics in data analysis.</p>
+
+      <pre class="a-code"><span style="color:#6b7280"># Sample dataset — inspection scores across 10 assets</span>
+<span style="color:#818cf8">import</span> pandas <span style="color:#818cf8">as</span> pd
+<span style="color:#818cf8">import</span> numpy  <span style="color:#818cf8">as</span> np
+
+data = [<span style="color:#d4561a">74, 88, 91, 62, 88, 95, 70, 88, 55, 100</span>]
+s = pd.Series(data, name=<span style="color:#34d399">"inspection_score"</span>)
+
+<span style="color:#6b7280"># ── Central Tendency ──────────────────────────────────</span>
+<span style="color:#818cf8">print</span>(<span style="color:#34d399">f"Mean:   {s.mean():.2f}"</span>)      <span style="color:#6b7280"># 81.10</span>
+<span style="color:#818cf8">print</span>(<span style="color:#34d399">f"Median: {s.median():.2f}"</span>)    <span style="color:#6b7280"># 88.00</span>
+<span style="color:#818cf8">print</span>(<span style="color:#34d399">f"Mode:   {s.mode()[0]}"</span>)       <span style="color:#6b7280"># 88  (appears 3×)</span>
+
+<span style="color:#6b7280"># ── Spread ────────────────────────────────────────────</span>
+<span style="color:#818cf8">print</span>(<span style="color:#34d399">f"Range:   {s.max() - s.min()}"</span>)     <span style="color:#6b7280"># 45</span>
+<span style="color:#818cf8">print</span>(<span style="color:#34d399">f"Std Dev: {s.std():.2f}"</span>)           <span style="color:#6b7280"># 14.73  (sample, ddof=1)</span>
+<span style="color:#818cf8">print</span>(<span style="color:#34d399">f"Variance:{s.var():.2f}"</span>)           <span style="color:#6b7280"># 216.99</span>
+<span style="color:#818cf8">print</span>(<span style="color:#34d399">f"IQR:     {s.quantile(.75)-s.quantile(.25)}"</span>) <span style="color:#6b7280"># 22.5</span>
+
+<span style="color:#6b7280"># ── One-liner summary ─────────────────────────────────</span>
+<span style="color:#818cf8">print</span>(s.describe())</pre>
+
+      <p class="lesson-p" style="margin-top:8px">Output of <code style="background:var(--bg-card);padding:2px 7px;border-radius:5px;font-size:.8rem;color:var(--cyan)">s.describe()</code>:</p>
+
+      <pre class="a-code" style="font-size:.8rem">count    10.000000
+mean     81.100000
+std      14.732653
+min      55.000000
+25%      70.500000    ← Q1
+50%      88.000000    ← Median
+75%      91.750000    ← Q3
+max     100.000000</pre>
+
+      <div class="tip-box" style="margin-top:16px"><strong>Skewness check:</strong> Mean (81.1) &lt; Median (88.0) → this dataset is <em>negatively skewed</em>. The few low-scoring assets pull the mean down. Report the median for a fairer representation of typical asset performance.</div>
+
+      <!-- ── 6. DETECTING OUTLIERS ── -->
+      <div class="lesson-h2">Detecting Outliers with IQR</div>
+      <p class="lesson-p">The IQR fence method is the most common rule for flagging outliers without assumptions about distribution shape.</p>
+
+      <div class="formula-box">
+        Lower fence = Q1 − 1.5 × IQR &nbsp;&nbsp;|&nbsp;&nbsp; Upper fence = Q3 + 1.5 × IQR
+        <span>Any value outside these fences is considered a potential outlier.</span>
+      </div>
+
+      <pre class="a-code">Q1  = s.quantile(<span style="color:#d4561a">0.25</span>)   <span style="color:#6b7280"># 70.5</span>
+Q3  = s.quantile(<span style="color:#d4561a">0.75</span>)   <span style="color:#6b7280"># 91.75</span>
+IQR = Q3 - Q1          <span style="color:#6b7280"># 21.25</span>
+
+lower = Q1 - <span style="color:#d4561a">1.5</span> * IQR  <span style="color:#6b7280"># 38.625</span>
+upper = Q3 + <span style="color:#d4561a">1.5</span> * IQR  <span style="color:#6b7280"># 123.625</span>
+
+outliers = s[(s &lt; lower) | (s &gt; upper)]
+<span style="color:#818cf8">print</span>(outliers)          <span style="color:#6b7280"># Empty — no outliers in this dataset</span></pre>
+
+      <!-- ── 7. SUMMARY ── -->
+      <div class="lesson-h2">Quick Reference Summary</div>
+
+      <table class="study-table">
+        <thead><tr><th>Metric</th><th>Measures</th><th>Best For</th><th>Sensitive To Outliers?</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--cyan);font-weight:700">Mean</td><td>Centre</td><td>Symmetric data, KPIs</td><td style="color:#e879f9">Yes ⚠</td></tr>
+          <tr><td style="color:var(--cyan);font-weight:700">Median</td><td>Centre</td><td>Skewed data, incomes</td><td style="color:#34d399">No ✓</td></tr>
+          <tr><td style="color:var(--cyan);font-weight:700">Mode</td><td>Centre</td><td>Categorical, peaks</td><td style="color:#34d399">No ✓</td></tr>
+          <tr><td style="color:var(--purple-l);font-weight:700">Range</td><td>Spread</td><td>Quick overview</td><td style="color:#e879f9">Yes ⚠</td></tr>
+          <tr><td style="color:var(--purple-l);font-weight:700">Std Deviation</td><td>Spread</td><td>Normal data, control charts</td><td style="color:#e879f9">Yes ⚠</td></tr>
+          <tr><td style="color:var(--purple-l);font-weight:700">IQR</td><td>Spread</td><td>Skewed data, outlier detection</td><td style="color:#34d399">No ✓</td></tr>
+        </tbody>
+      </table>
+
+      <!-- ── 8. KEY TAKEAWAYS ── -->
+      <div style="background:var(--bg-card);border:1px solid var(--border-s);border-radius:14px;padding:24px;margin-top:28px">
+        <div style="font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;padding-left:10px;border-left:3px solid var(--pink)">Key Takeaways</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li style="display:flex;gap:10px;font-size:.82rem;color:var(--w70);line-height:1.6"><span style="color:var(--cyan);font-weight:900;flex-shrink:0">01</span>Always report both a measure of centre <em>and</em> a measure of spread — one without the other is incomplete.</li>
+          <li style="display:flex;gap:10px;font-size:.82rem;color:var(--w70);line-height:1.6"><span style="color:var(--cyan);font-weight:900;flex-shrink:0">02</span>Check for skewness before choosing mean vs median. A quick test: if Mean ≠ Median, your data is skewed.</li>
+          <li style="display:flex;gap:10px;font-size:.82rem;color:var(--w70);line-height:1.6"><span style="color:var(--cyan);font-weight:900;flex-shrink:0">03</span>Use IQR over standard deviation when your data has outliers or is not normally distributed.</li>
+          <li style="display:flex;gap:10px;font-size:.82rem;color:var(--w70);line-height:1.6"><span style="color:var(--cyan);font-weight:900;flex-shrink:0">04</span><code style="background:rgba(212,86,26,0.1);padding:1px 6px;border-radius:4px;font-size:.79rem">df.describe()</code> is your fastest first step on any new dataset — run it before anything else.</li>
+          <li style="display:flex;gap:10px;font-size:.82rem;color:var(--w70);line-height:1.6"><span style="color:var(--cyan);font-weight:900;flex-shrink:0">05</span>Descriptive statistics describe what <em>is</em> — inferential statistics ask what it <em>means</em>. Know the boundary.</li>
+        </ul>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:28px;padding-top:24px;border-top:1px solid var(--border)">
+        <button class="btn" style="font-size:.78rem;padding:9px 20px" onclick="go('blog')">← Back to Blog</button>
+        <button class="btn" style="font-size:.78rem;padding:9px 20px;opacity:.45;cursor:not-allowed" disabled>Next Lesson →</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ARTICLE MODAL ===================== -->
+<div class="modal-bg" id="modal-bg" onclick="closeArt(event)">
+  <div class="modal-panel" id="modal-panel">
+    <div class="modal-progress"><div class="modal-progress-bar" id="mpb"></div></div>
+    <div class="modal-head">
+      <button class="modal-close" onclick="closeArt()">✕</button>
+      <div class="modal-cat" id="m-cat"></div>
+      <div class="modal-title" id="m-title"></div>
+      <div class="modal-meta" id="m-meta"></div>
+    </div>
+    <div class="modal-body" id="m-body"></div>
+  </div>
+</div>
+
+<!-- ===================== HIDDEN ARTICLE BODIES ===================== -->
+<div id="art-1" hidden>
+<p class="a-p">Artificial Intelligence is everywhere. Companies are investing billions into AI-driven products, automation systems, predictive analytics and machine learning platforms. Yet surprisingly, most AI projects never reach production or fail to deliver business value.</p>
+<div class="a-callout"><strong>The core truth:</strong> Building AI models is only a small part of the challenge. The real challenge lies in aligning technology with business objectives, data quality, operations and organisational readiness.</div>
+<div class="a-h2">The AI Gold Rush</div>
+<p class="a-p">Organisations across industries race to adopt AI — banks use fraud detection, retailers use recommendation engines, healthcare firms predict diseases, logistics companies optimise delivery routes. Amazon, Netflix and Tesla have demonstrated enormous potential. But for every successful AI system, hundreds quietly fail behind the scenes.</p>
+<div class="a-h2">Major Reason 1 — Poor Data Quality</div>
+<p class="a-p">Machine learning depends entirely on data. If the data is incomplete, duplicated, biased, inconsistent or outdated, even advanced algorithms fail. A model trained on poor data behaves like a student learning from incorrect textbooks.</p>
+<div class="a-h3">Real-world example</div>
+<p class="a-p">A telecom company builds a customer churn model. Problems: missing customer records, incorrect billing information, duplicate customer IDs. The model makes inaccurate predictions and management loses trust. The project is cancelled — not because the algorithm failed, but because the data did.</p>
+<pre class="a-code"><span class="cm"># Detecting data quality issues programmatically</span>
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> great_expectations <span class="kw">as</span> gx
+
+df = pd.<span class="fn">read_csv</span>(<span class="st">'customer_data.csv'</span>)
+
+<span class="cm"># 1. Null check</span>
+null_pct = (df.<span class="fn">isnull</span>().<span class="fn">sum</span>() / <span class="fn">len</span>(df) * <span class="nm">100</span>).<span class="fn">round</span>(<span class="nm">2</span>)
+<span class="fn">print</span>(null_pct[null_pct > <span class="nm">0</span>])
+
+<span class="cm"># 2. Duplicate key detection</span>
+dupes = df.<span class="fn">duplicated</span>(subset=[<span class="st">'customer_id'</span>]).<span class="fn">sum</span>()
+<span class="fn">print</span>(<span class="st">f"Duplicate IDs: {dupes}"</span>)
+
+<span class="cm"># 3. Great Expectations validation</span>
+ctx = gx.<span class="fn">get_context</span>()
+suite = ctx.<span class="fn">add_expectation_suite</span>(<span class="st">"churn_model_inputs"</span>)
+batch = ctx.<span class="fn">get_batch</span>(df)
+batch.<span class="fn">expect_column_values_to_not_be_null</span>(<span class="st">"customer_id"</span>)
+batch.<span class="fn">expect_column_values_to_be_between</span>(<span class="st">"monthly_charge"</span>, <span class="nm">0</span>, <span class="nm">500</span>)</pre>
+<div class="a-h2">Major Reason 2 — No Clear Business Objective</div>
+<p class="a-p">Many organisations start AI projects because "everyone else is doing AI." That is dangerous. AI should solve measurable business problems — reduce fraud, improve customer retention, optimise supply chains, increase revenue. Without KPIs, AI becomes an expensive experiment.</p>
+<table class="a-table"><tr><th>Wrong Approach</th><th>Right Approach</th></tr><tr><td>"Let's use AI on our data"</td><td>"Reduce customer churn by 15% in Q3"</td></tr><tr><td>"Build a recommendation engine"</td><td>"Increase basket size by £8 per transaction"</td></tr><tr><td>"Implement NLP somewhere"</td><td>"Cut support ticket resolution from 4h to 45min"</td></tr></table>
+<div class="a-h2">Major Reason 3 — Models Never Reach Production</div>
+<p class="a-p">Building a model in a Jupyter notebook is easy. Deploying it reliably is difficult. This is where most companies struggle: APIs, cloud infrastructure, monitoring, scalability, MLOps.</p>
+<div class="a-h2">The Hidden Problem: Organisational Readiness</div>
+<p class="a-p">Even technically strong AI systems fail when organisations resist change. Employees may distrust AI, fear automation, or avoid adoption. Successful AI transformation requires leadership support, employee training and process redesign.</p>
+<div class="a-warn"><strong>Real-world failure:</strong> A retail company built a demand forecasting model with 92% prediction accuracy and a strong analytics pipeline — but managers ignored predictions and continued manual planning. The AI system failed despite strong engineering.</div>
+<div class="a-metrics"><div class="a-metric"><div class="a-metric-val">85%</div><div class="a-metric-lbl">AI projects fail to reach prod</div></div><div class="a-metric"><div class="a-metric-val">67%</div><div class="a-metric-lbl">fail due to data issues</div></div><div class="a-metric"><div class="a-metric-val">3×</div><div class="a-metric-lbl">ROI for AI-aligned orgs</div></div></div>
+<div class="a-takeaways"><div class="a-takeaways-title">Key Takeaways</div><ul class="a-list"><li>AI failures stem more from business issues than technical ones</li><li>Data quality determines model success before training begins</li><li>MLOps and deployment pipelines are as critical as the model itself</li><li>Clear KPIs must be defined before any model is built</li><li>AI requires organisational adoption to generate real value</li></ul></div>
+</div>
+
+<div id="art-2" hidden>
+<p class="a-p">Every time you book a ride using Uber, dozens of machine learning models start working instantly behind the scenes. Within seconds, Uber predicts your pickup time, traffic conditions, ride pricing, driver availability and route optimisation.</p>
+<div class="a-metrics"><div class="a-metric"><div class="a-metric-val">100M+</div><div class="a-metric-lbl">trips per month</div></div><div class="a-metric"><div class="a-metric-val">&lt;1s</div><div class="a-metric-lbl">ML inference latency</div></div><div class="a-metric"><div class="a-metric-val">40+</div><div class="a-metric-lbl">ML models per booking</div></div></div>
+<div class="a-h2">1. ETA Prediction</div>
+<p class="a-p">When you open Uber, it estimates "Driver arriving in 4 minutes." This prediction uses GPS data, traffic patterns, road conditions and historical trip data. Models continuously update arrival estimates using gradient-boosted trees trained on billions of historical trips.</p>
+<pre class="a-code"><span class="cm"># Simplified ETA model feature set (Uber H3 hex grid)</span>
+features = {
+    <span class="st">'driver_lat'</span>: <span class="nm">51.5074</span>,
+    <span class="st">'driver_lng'</span>: <span class="nm">-0.1278</span>,
+    <span class="st">'pickup_lat'</span>: <span class="nm">51.5123</span>,
+    <span class="st">'pickup_lng'</span>: <span class="nm">-0.1190</span>,
+    <span class="st">'h3_hex_id'</span>: <span class="st">'89754e64dbfffff'</span>,  <span class="cm"># H3 resolution 9</span>
+    <span class="st">'time_of_day_sin'</span>: np.<span class="fn">sin</span>(<span class="nm">2</span> * np.pi * hour / <span class="nm">24</span>),
+    <span class="st">'day_of_week'</span>: <span class="nm">2</span>,
+    <span class="st">'live_traffic_speed_kph'</span>: <span class="nm">18.4</span>,
+    <span class="st">'historical_avg_speed_kph'</span>: <span class="nm">24.1</span>,
+    <span class="st">'surge_multiplier'</span>: <span class="nm">1.8</span>
+}
+eta_seconds = model.<span class="fn">predict</span>([features])[<span class="nm">0</span>]</pre>
+<div class="a-h2">2. Dynamic Surge Pricing</div>
+<p class="a-p">Uber's surge pricing system is a real-time supply/demand balancing act. When demand exceeds supply in a hexagonal zone (using H3 geospatial indexing), prices increase — incentivising more drivers to enter that zone and discouraging marginal riders.</p>
+<pre class="a-code"><span class="cm"># Surge multiplier logic (simplified)</span>
+<span class="kw">def</span> <span class="fn">compute_surge</span>(hex_id: str, window_mins: <span class="nm">int</span> = <span class="nm">15</span>) -> <span class="fn">float</span>:
+    demand = <span class="fn">get_ride_requests</span>(hex_id, window_mins)
+    supply  = <span class="fn">get_available_drivers</span>(hex_id)
+    ratio   = demand / (supply + <span class="nm">1e-6</span>)  <span class="cm"># avoid div-by-zero</span>
+
+    <span class="kw">if</span>   ratio &lt; <span class="nm">0.5</span>: <span class="kw">return</span> <span class="nm">1.0</span>
+    <span class="kw">elif</span> ratio &lt; <span class="nm">1.0</span>: <span class="kw">return</span> <span class="nm">1.0</span> + (ratio - <span class="nm">0.5</span>) * <span class="nm">0.8</span>
+    <span class="kw">elif</span> ratio &lt; <span class="nm">2.0</span>: <span class="kw">return</span> <span class="nm">1.4</span> + (ratio - <span class="nm">1.0</span>) * <span class="nm">1.2</span>
+    <span class="kw">else</span>:            <span class="kw">return</span> <span class="nm">2.6</span> + np.<span class="fn">log</span>(ratio) * <span class="nm">0.5</span></pre>
+<div class="a-h2">3. Rider–Driver Matching</div>
+<p class="a-p">Uber's matching problem is an online bipartite matching challenge solved every few seconds across a city. The platform considers driver proximity, traffic, trip acceptance history, and estimated trip duration to maximise global efficiency — not just individual wait times.</p>
+<div class="a-h2">4. Fraud Detection</div>
+<p class="a-p">Uber uses ML to detect fake accounts, payment fraud and suspicious ride activity in milliseconds. Isolation Forests and LSTM anomaly detectors flag unusual behavioural patterns before transactions complete.</p>
+<pre class="a-code"><span class="cm"># Isolation Forest for trip anomaly detection</span>
+<span class="kw">from</span> sklearn.ensemble <span class="kw">import</span> IsolationForest
+
+clf = <span class="fn">IsolationForest</span>(contamination=<span class="nm">0.01</span>, n_estimators=<span class="nm">200</span>, random_state=<span class="nm">42</span>)
+clf.<span class="fn">fit</span>(X_train)  <span class="cm"># features: speed, distance, payment behaviour</span>
+
+anomaly_scores = clf.<span class="fn">decision_function</span>(X_test)
+is_fraud = anomaly_scores &lt; <span class="nm">-0.15</span>  <span class="cm"># threshold tuned on labelled set</span></pre>
+<div class="a-takeaways"><div class="a-takeaways-title">Key Takeaways</div><ul class="a-list"><li>Uber runs 40+ ML models per booking, all within &lt;1 second inference SLA</li><li>H3 hexagonal grid enables fine-grained, scalable geospatial ML</li><li>Surge pricing is a real-time supply/demand optimisation problem, not just a price hike</li><li>Even state-of-the-art ML systems struggle with GPS inaccuracies and demand unpredictability</li><li>AI directly drives Uber's core revenue and operational efficiency metrics</li></ul></div>
+</div>
+
+<div id="art-3" hidden>
+<p class="a-p">Building an ETL pipeline that runs once is easy. Building one that runs reliably every day for three years — handling upstream schema changes, late-arriving data and partial failures — is engineering. This article covers production-grade patterns using Apache Airflow 2.x and dbt Core.</p>
+<div class="a-h2">DAG Design Principles</div>
+<p class="a-p">A Directed Acyclic Graph (DAG) in Airflow defines the workflow. The three rules every production DAG must follow: <strong>idempotency</strong> (re-running produces the same result), <strong>atomicity</strong> (each task either fully succeeds or fully fails), and <strong>observability</strong> (every step is measurable).</p>
+<pre class="a-code"><span class="cm"># airflow/dags/financial_etl.py</span>
+<span class="kw">from</span> airflow.decorators <span class="kw">import</span> dag, task
+<span class="kw">from</span> airflow.providers.postgres.hooks.postgres <span class="kw">import</span> PostgresHook
+<span class="kw">from</span> airflow.sensors.external_task <span class="kw">import</span> ExternalTaskSensor
+<span class="kw">from</span> pendulum <span class="kw">import</span> datetime
+
+@<span class="fn">dag</span>(
+    schedule=<span class="st">"0 6 * * MON-FRI"</span>,          <span class="cm"># weekdays at 06:00 UTC</span>
+    start_date=<span class="fn">datetime</span>(<span class="nm">2024</span>, <span class="nm">1</span>, <span class="nm">1</span>),
+    catchup=<span class="nm">False</span>,
+    max_active_runs=<span class="nm">1</span>,
+    default_args={<span class="st">"retries"</span>: <span class="nm">3</span>, <span class="st">"retry_delay_seconds"</span>: <span class="nm">300</span>},
+)
+<span class="kw">def</span> <span class="fn">financial_etl_pipeline</span>():
+
+    wait_upstream = <span class="fn">ExternalTaskSensor</span>(
+        task_id=<span class="st">"wait_for_source_feed"</span>,
+        external_dag_id=<span class="st">"bloomberg_ingest"</span>,
+        allowed_states=[<span class="st">"success"</span>],
+        timeout=<span class="nm">3600</span>,
+    )
+
+    @<span class="fn">task</span>()
+    <span class="kw">def</span> <span class="fn">extract_holdings</span>(**context) -> <span class="fn">list</span>:
+        hook = <span class="fn">PostgresHook</span>(postgres_conn_id=<span class="st">"source_db"</span>)
+        rows = hook.<span class="fn">get_records</span>(
+            <span class="st">"SELECT * FROM holdings WHERE updated_at >= %(run_date)s"</span>,
+            parameters={<span class="st">"run_date"</span>: context[<span class="st">"ds"</span>]}
+        )
+        <span class="kw">return</span> rows
+
+    @<span class="fn">task</span>()
+    <span class="kw">def</span> <span class="fn">run_dbt_models</span>():
+        <span class="kw">import</span> subprocess
+        result = subprocess.<span class="fn">run</span>(
+            [<span class="st">"dbt"</span>, <span class="st">"run"</span>, <span class="st">"--select"</span>, <span class="st">"tag:daily"</span>, <span class="st">"--target"</span>, <span class="st">"prod"</span>],
+            capture_output=<span class="nm">True</span>, text=<span class="nm">True</span>
+        )
+        <span class="kw">if</span> result.returncode != <span class="nm">0</span>:
+            <span class="kw">raise</span> <span class="fn">RuntimeError</span>(result.stderr)
+
+    holdings = <span class="fn">extract_holdings</span>()
+    wait_upstream >> holdings >> <span class="fn">run_dbt_models</span>()
+
+<span class="fn">financial_etl_pipeline</span>()</pre>
+<div class="a-h2">dbt Model Layering</div>
+<p class="a-p">dbt implements the medallion architecture through three model layers — each with different materialisation strategies and test coverage.</p>
+<pre class="a-code"><span class="cm">-- models/silver/fct_portfolio_daily.sql</span>
+{{<span class="fn"> config</span>(
+    materialized=<span class="st">'incremental'</span>,
+    unique_key=<span class="st">'portfolio_date_key'</span>,
+    on_schema_change=<span class="st">'sync_all_columns'</span>
+) }}
+
+<span class="kw">WITH</span> base <span class="kw">AS</span> (
+    <span class="kw">SELECT</span>
+        portfolio_id,
+        trade_date,
+        <span class="fn">SUM</span>(market_value)   <span class="kw">AS</span> total_market_value,
+        <span class="fn">SUM</span>(unrealised_pnl) <span class="kw">AS</span> total_pnl,
+        <span class="fn">COUNT</span>(position_id)  <span class="kw">AS</span> position_count
+    <span class="kw">FROM</span> {{ <span class="fn">ref</span>(<span class="st">'bronze_positions'</span>) }}
+    {% <span class="kw">if</span> is_incremental() %}
+        <span class="kw">WHERE</span> trade_date >= (<span class="kw">SELECT</span> <span class="fn">MAX</span>(trade_date) <span class="kw">FROM</span> {{ this }})
+    {% endif %}
+    <span class="kw">GROUP BY</span> <span class="nm">1</span>, <span class="nm">2</span>
+)
+<span class="kw">SELECT</span> *, {{ <span class="fn">dbt_utils.generate_surrogate_key</span>([<span class="st">'portfolio_id'</span>, <span class="st">'trade_date'</span>]) }}
+    <span class="kw">AS</span> portfolio_date_key
+<span class="kw">FROM</span> base</pre>
+<div class="a-h2">Failure Recovery Patterns</div>
+<div class="a-callout"><strong>The dead letter queue pattern:</strong> On extraction failure, write the failing batch to a dead-letter table with an error code and timestamp. A separate DAG retries dead-letter rows after upstream systems recover — preventing full pipeline re-runs.</div>
+<div class="a-takeaways"><div class="a-takeaways-title">Key Takeaways</div><ul class="a-list"><li>Design every DAG task for idempotency — re-runs must be safe</li><li>Use ExternalTaskSensors instead of fixed time delays for upstream dependencies</li><li>dbt incremental models with unique_key prevent duplicate inserts on retries</li><li>Dead letter queues prevent cascading failures from poisoning entire pipeline runs</li><li>Tag dbt models by schedule frequency for granular Airflow orchestration</li></ul></div>
+</div>
+
+<div id="art-4" hidden>
+<p class="a-p">Power BI dashboards that take 30 seconds to load are not a visualisation problem — they are a data model problem. This article covers the performance patterns that take Power BI reports from sluggish to sub-second on datasets exceeding 100 million rows.</p>
+<div class="a-h2">Measures vs Calculated Columns: The Critical Difference</div>
+<p class="a-p">Calculated columns are computed row-by-row at data refresh and stored in the model. Measures are computed on-the-fly at query time, only for the visible context. On large tables, calculated columns bloat the in-memory VertiPaq engine — always prefer measures.</p>
+<pre class="a-code"><span class="cm">-- ❌ WRONG: Calculated column (row-context, computed at refresh)</span>
+Revenue Category =
+    <span class="kw">IF</span>( Sales[Revenue] > <span class="nm">10000</span>, <span class="st">"High"</span>, <span class="st">"Low"</span> )
+
+<span class="cm">-- ✅ RIGHT: Measure (filter-context, computed at query time)</span>
+Revenue Category Measure =
+    <span class="kw">IF</span>(
+        [Total Revenue] > <span class="nm">10000</span>,
+        <span class="st">"High"</span>, <span class="st">"Low"</span>
+    )
+
+<span class="cm">-- ❌ WRONG: SUMX iterating 50M rows unnecessarily</span>
+Slow Revenue = <span class="kw">SUMX</span>( Sales, Sales[Qty] * Sales[UnitPrice] )
+
+<span class="cm">-- ✅ RIGHT: Pre-compute Revenue at ETL layer, SUM in DAX</span>
+Fast Revenue = <span class="kw">SUM</span>( Sales[Revenue] )</pre>
+<div class="a-h2">Query Folding in Power Query</div>
+<p class="a-p">Query folding is Power Query's ability to translate M code back into a native SQL query executed on the source database — instead of pulling all rows into memory. Breaking the fold chain is a performance catastrophe on large tables.</p>
+<pre class="a-code"><span class="cm">// ✅ Query folds — SQL runs on the server</span>
+<span class="kw">let</span>
+    Source = <span class="fn">Sql.Database</span>(<span class="st">"server"</span>, <span class="st">"db"</span>),
+    tbl    = Source{[Schema=<span class="st">"dbo"</span>,Item=<span class="st">"Sales"</span>]}[Data],
+    filter = <span class="fn">Table.SelectRows</span>(tbl, <span class="kw">each</span> [Year] = <span class="nm">2024</span>),  <span class="cm">// folds</span>
+    cols   = <span class="fn">Table.SelectColumns</span>(filter, {<span class="st">"ID"</span>,<span class="st">"Revenue"</span>})  <span class="cm">// folds</span>
+<span class="kw">in</span> cols
+
+<span class="cm">// ❌ Query BREAKS the fold — entire table loaded into RAM</span>
+<span class="kw">let</span>
+    ...
+    <span class="cm">// Table.Buffer() always breaks folding</span>
+    buffered = <span class="fn">Table.Buffer</span>(tbl),
+    filter   = <span class="fn">Table.SelectRows</span>(buffered, <span class="kw">each</span> [Year] = <span class="nm">2024</span>)
+<span class="kw">in</span> filter</pre>
+<div class="a-h2">Using Variables to Avoid Repeated Context Evaluation</div>
+<pre class="a-code"><span class="cm">-- ❌ SLOW: [Total Revenue] evaluated 3 times in different contexts</span>
+Variance % =
+    <span class="kw">DIVIDE</span>( [Total Revenue] - [Budget], [Budget] )
+
+<span class="cm">-- ✅ FAST: VAR captures value once, reused</span>
+Variance % Optimised =
+<span class="kw">VAR</span> vRevenue = [Total Revenue]
+<span class="kw">VAR</span> vBudget  = [Budget]
+<span class="kw">VAR</span> vDiff    = vRevenue - vBudget
+<span class="kw">RETURN</span>
+    <span class="kw">IF</span>( vBudget = <span class="nm">0</span>, <span class="kw">BLANK</span>(), <span class="kw">DIVIDE</span>( vDiff, vBudget ) )</pre>
+<div class="a-takeaways"><div class="a-takeaways-title">Key Takeaways</div><ul class="a-list"><li>Never use calculated columns where a measure will do — they bloat VertiPaq memory</li><li>SUMX over millions of rows is an anti-pattern: pre-aggregate at ETL layer</li><li>Check query folding with View Native Query in Power Query Editor</li><li>Variables (VAR) prevent repeated filter-context evaluations in complex DAX</li><li>Use DAX Studio's Server Timings tab to profile query execution plans</li></ul></div>
+</div>
+
+<div id="art-5" hidden>
+<p class="a-p">Financial sentiment analysis goes beyond keyword matching — it requires understanding context, hedging language and domain-specific terminology. FinBERT, pre-trained on financial corpora, outperforms general BERT models by 12–18 percentage points on financial NLP benchmarks.</p>
+<div class="a-h2">Why General BERT Fails on Financial Text</div>
+<div class="a-callout">The word "volatile" is neutral in everyday language, but strongly negative in financial contexts. "Strong headwinds" sounds positive but signals difficulty. General language models consistently misclassify these domain-specific patterns.</div>
+<div class="a-h2">FinBERT Pipeline</div>
+<pre class="a-code"><span class="kw">from</span> transformers <span class="kw">import</span> AutoTokenizer, AutoModelForSequenceClassification
+<span class="kw">import</span> torch, torch.nn.functional <span class="kw">as</span> F
+
+<span class="cm"># Load ProsusAI/finbert (pre-trained on 4.9B financial tokens)</span>
+tokenizer = <span class="fn">AutoTokenizer</span>.<span class="fn">from_pretrained</span>(<span class="st">"ProsusAI/finbert"</span>)
+model     = <span class="fn">AutoModelForSequenceClassification</span>.<span class="fn">from_pretrained</span>(<span class="st">"ProsusAI/finbert"</span>)
+model.<span class="fn">eval</span>()
+
+<span class="kw">def</span> <span class="fn">get_sentiment</span>(text: str) -> dict:
+    inputs = <span class="fn">tokenizer</span>(text, return_tensors=<span class="st">"pt"</span>,
+                       truncation=<span class="nm">True</span>, max_length=<span class="nm">512</span>)
+    <span class="kw">with</span> torch.<span class="fn">no_grad</span>():
+        logits = <span class="fn">model</span>(**inputs).logits
+    probs  = F.<span class="fn">softmax</span>(logits, dim=-<span class="nm">1</span>)[<span class="nm">0</span>]
+    labels = [<span class="st">"positive"</span>, <span class="st">"negative"</span>, <span class="st">"neutral"</span>]
+    <span class="kw">return</span> {l: <span class="fn">round</span>(p.<span class="fn">item</span>(), <span class="nm">4</span>) <span class="kw">for</span> l, p <span class="kw">in</span> <span class="fn">zip</span>(labels, probs)}
+
+<span class="cm"># Example: Q3 earnings call excerpt</span>
+text = <span class="st">"""We experienced strong headwinds in our EMEA division
+           with margin compression of 340 basis points."""</span>
+<span class="fn">print</span>(<span class="fn">get_sentiment</span>(text))
+<span class="cm"># {'positive': 0.0312, 'negative': 0.9241, 'neutral': 0.0447}</span></pre>
+<div class="a-h2">Batch Processing Earnings Calls at Scale</div>
+<pre class="a-code"><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">from</span> transformers <span class="kw">import</span> pipeline
+
+<span class="cm"># Batched inference — 5× faster than row-by-row</span>
+nlp_pipe = <span class="fn">pipeline</span>(
+    <span class="st">"text-classification"</span>,
+    model=<span class="st">"ProsusAI/finbert"</span>,
+    device=<span class="nm">0</span>,          <span class="cm"># GPU</span>
+    batch_size=<span class="nm">64</span>,
+    truncation=<span class="nm">True</span>
+)
+
+df = pd.<span class="fn">read_parquet</span>(<span class="st">"earnings_calls_2024.parquet"</span>)
+df[<span class="st">"sentences"</span>] = df[<span class="st">"transcript"</span>].<span class="fn">apply</span>(<span class="fn">sent_tokenize</span>)
+df = df.<span class="fn">explode</span>(<span class="st">"sentences"</span>)
+
+results = <span class="fn">nlp_pipe</span>(df[<span class="st">"sentences"</span>].<span class="fn">tolist</span>())
+df[<span class="st">"sentiment"</span>] = [r[<span class="st">"label"</span>] <span class="kw">for</span> r <span class="kw">in</span> results]
+df[<span class="st">"confidence"</span>] = [r[<span class="st">"score"</span>] <span class="kw">for</span> r <span class="kw">in</span> results]
+
+<span class="cm"># Aggregate to ticker-level signal</span>
+signal = df.<span class="fn">groupby</span>([<span class="st">"ticker"</span>, <span class="st">"sentiment"</span>]).<span class="fn">size</span>().<span class="fn">unstack</span>(<span class="nm">fill_value</span>=<span class="nm">0</span>)
+signal[<span class="st">"bull_ratio"</span>] = signal[<span class="st">"positive"</span>] / (signal[<span class="st">"positive"</span>] + signal[<span class="st">"negative"</span>])</pre>
+<div class="a-metrics"><div class="a-metric"><div class="a-metric-val">87%</div><div class="a-metric-lbl">FinBERT accuracy on FPB benchmark</div></div><div class="a-metric"><div class="a-metric-val">12pp</div><div class="a-metric-lbl">over general BERT</div></div><div class="a-metric"><div class="a-metric-val">5×</div><div class="a-metric-lbl">speedup with batched inference</div></div></div>
+<div class="a-takeaways"><div class="a-takeaways-title">Key Takeaways</div><ul class="a-list"><li>FinBERT outperforms general BERT on financial text by 12–18 percentage points</li><li>Sentence-level analysis captures nuance that document-level scoring misses</li><li>Batched GPU inference is essential for processing full earnings call datasets</li><li>Aggregate sentiment to ticker-level bull/bear ratios for tradeable signals</li><li>Always calibrate confidence thresholds on domain-specific labelled test sets</li></ul></div>
+</div>
+
+<div id="art-6" hidden>
+<p class="a-p">Value-at-Risk (VaR) answers one question: "What is the maximum loss we should expect over a given period, at a given confidence level?" Monte Carlo simulation generates thousands of possible portfolio paths to answer this question robustly — without assuming normal return distributions.</p>
+<div class="a-h2">The Problem with Parametric VaR</div>
+<div class="a-warn"><strong>Historical parametric VaR assumes returns are normally distributed.</strong> Financial returns exhibit fat tails and negative skew — the 2008 crisis and COVID crash were 20σ+ events under normality assumptions. Monte Carlo handles non-normality naturally through historical return resampling.</div>
+<div class="a-h2">Full Implementation</div>
+<pre class="a-code"><span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># ── 1. Load historical returns ──────────────────────────────</span>
+prices  = pd.<span class="fn">read_parquet</span>(<span class="st">"portfolio_prices.parquet"</span>)
+returns = prices.<span class="fn">pct_change</span>().<span class="fn">dropna</span>()
+
+weights = np.<span class="fn">array</span>([<span class="nm">0.40</span>, <span class="nm">0.30</span>, <span class="nm">0.20</span>, <span class="nm">0.10</span>])  <span class="cm"># AAPL,MSFT,BND,GLD</span>
+portfolio_value = <span class="nm">1_000_000</span>                          <span class="cm"># £1M portfolio</span>
+
+<span class="cm"># ── 2. Cholesky decomposition preserves correlation ─────────</span>
+cov  = returns.<span class="fn">cov</span>()
+L    = np.linalg.<span class="fn">cholesky</span>(cov.<span class="fn">values</span>())
+mu   = returns.<span class="fn">mean</span>().<span class="fn">values</span>()
+
+<span class="cm"># ── 3. Monte Carlo simulation: 10,000 paths × 252 days ──────</span>
+N_SIMS, HORIZON = <span class="nm">10_000</span>, <span class="nm">252</span>
+rng = np.random.<span class="fn">default_rng</span>(seed=<span class="nm">42</span>)
+
+portfolio_returns = np.<span class="fn">zeros</span>(N_SIMS)
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(N_SIMS):
+    z   = rng.<span class="fn">standard_normal</span>((HORIZON, <span class="nm">4</span>))
+    sim = mu + (L @ z.T).T          <span class="cm"># correlated returns</span>
+    portfolio_returns[i] = (sim @ weights).<span class="fn">sum</span>()
+
+<span class="cm"># ── 4. Compute VaR and CVaR ──────────────────────────────────</span>
+VaR_95  = np.<span class="fn">percentile</span>(portfolio_returns, <span class="nm">5</span>)
+VaR_99  = np.<span class="fn">percentile</span>(portfolio_returns, <span class="nm">1</span>)
+CVaR_95 = portfolio_returns[portfolio_returns &lt;= VaR_95].<span class="fn">mean</span>()
+
+<span class="fn">print</span>(<span class="st">f"1-Year VaR (95%):  £{VaR_95  * portfolio_value:,.0f}"</span>)
+<span class="fn">print</span>(<span class="st">f"1-Year VaR (99%):  £{VaR_99  * portfolio_value:,.0f}"</span>)
+<span class="fn">print</span>(<span class="st">f"CVaR (95%):        £{CVaR_95 * portfolio_value:,.0f}"</span>)</pre>
+<div class="a-h2">Reading the Output</div>
+<table class="a-table"><tr><th>Metric</th><th>Value</th><th>Interpretation</th></tr><tr><td>VaR 95%</td><td>-£82,400</td><td>5% chance of losing more than £82K in a year</td></tr><tr><td>VaR 99%</td><td>-£134,200</td><td>1% chance of losing more than £134K in a year</td></tr><tr><td>CVaR 95%</td><td>-£108,900</td><td>Expected loss when VaR threshold is breached</td></tr></table>
+<div class="a-callout"><strong>CVaR (Conditional VaR)</strong> is more informative than VaR for tail risk — it measures the expected loss in the worst cases, not just the threshold. Basel III requires banks to use CVaR (Expected Shortfall) over VaR for internal model capital calculations.</div>
+<div class="a-takeaways"><div class="a-takeaways-title">Key Takeaways</div><ul class="a-list"><li>Use Cholesky decomposition to preserve inter-asset correlation in simulations</li><li>CVaR (Expected Shortfall) is a better tail risk measure than VaR for regulatory purposes</li><li>10,000+ simulations are needed for stable 99% confidence interval estimates</li><li>Historical return resampling avoids normality assumptions that understate tail risk</li><li>Vectorise simulations with NumPy — pure Python loops are 100× slower</li></ul></div>
+</div>
+
+<div id="art-7" hidden>
+<p class="a-p">The medallion architecture — Bronze, Silver, Gold — is the de-facto standard for enterprise data lakehouses. Each layer has different quality guarantees, update frequencies and consumer audiences. Getting the layer contracts right from day one prevents expensive rewrites at scale.</p>
+<div class="a-h2">Layer Responsibilities</div>
+<table class="a-table"><tr><th>Layer</th><th>Materialisation</th><th>Quality</th><th>Consumers</th></tr><tr><td>Bronze</td><td>Append-only Parquet</td><td>Raw / uncleaned</td><td>Data engineers</td></tr><tr><td>Silver</td><td>Delta MERGE</td><td>Cleansed, typed, deduped</td><td>Data scientists</td></tr><tr><td>Gold</td><td>Incremental dbt</td><td>Business aggregates</td><td>BI tools / dashboards</td></tr></table>
+<div class="a-h2">Bronze: Ingest Everything, Change Nothing</div>
+<pre class="a-code"><span class="cm"># bronze/ingest_bloomberg.py — append-only raw landing</span>
+<span class="kw">from</span> delta <span class="kw">import</span> DeltaTable
+<span class="kw">from</span> pyspark.sql <span class="kw">import</span> SparkSession
+<span class="kw">import</span> pyspark.sql.functions <span class="kw">as</span> F
+
+spark = <span class="fn">SparkSession</span>.<span class="fn">builder</span>.<span class="fn">getOrCreate</span>()
+
+raw_df = spark.<span class="fn">read</span>.<span class="fn">json</span>(<span class="st">"s3://landing/bloomberg/2024-11-15/"</span>)
+
+(raw_df
+    .<span class="fn">withColumn</span>(<span class="st">"_ingested_at"</span>, F.<span class="fn">current_timestamp</span>())
+    .<span class="fn">withColumn</span>(<span class="st">"_source_file"</span>, F.<span class="fn">input_file_name</span>())
+    .<span class="fn">write</span>
+    .<span class="fn">format</span>(<span class="st">"delta"</span>)
+    .<span class="fn">mode</span>(<span class="st">"append"</span>)               <span class="cm"># NEVER overwrite bronze</span>
+    .<span class="fn">partitionBy</span>(<span class="st">"trade_date"</span>)
+    .<span class="fn">save</span>(<span class="st">"s3://lakehouse/bronze/bloomberg_prices/"</span>)
+)</pre>
+<div class="a-h2">Silver: dbt Data Quality Contracts</div>
+<pre class="a-code"><span class="cm"># models/silver/schema.yml — data quality as code</span>
+models:
+  - name: silver_positions
+    description: <span class="st">"Cleansed, deduped position data"</span>
+    columns:
+      - name: position_id
+        tests:
+          - unique
+          - not_null
+      - name: market_value
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: <span class="nm">-10000000</span>
+              max_value: <span class="nm">500000000</span>
+      - name: trade_date
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date</pre>
+<div class="a-h2">Gold: Business-Ready Aggregates</div>
+<pre class="a-code"><span class="cm">-- models/gold/rpt_portfolio_summary.sql</span>
+{{<span class="fn"> config</span>(materialized=<span class="st">'table'</span>, post_hook=<span class="st">"ANALYZE TABLE {{ this }}"</span>) }}
+
+<span class="kw">SELECT</span>
+    p.portfolio_name,
+    p.portfolio_manager,
+    <span class="fn">SUM</span>(pos.market_value)                      <span class="kw">AS</span> total_aum,
+    <span class="fn">SUM</span>(pos.unrealised_pnl)                     <span class="kw">AS</span> total_pnl,
+    <span class="fn">SUM</span>(pos.unrealised_pnl) / <span class="fn">NULLIF</span>(<span class="fn">SUM</span>(pos.cost_basis), <span class="nm">0</span>) <span class="kw">AS</span> return_pct,
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> pos.security_id)             <span class="kw">AS</span> n_positions,
+    <span class="fn">MAX</span>(pos.trade_date)                         <span class="kw">AS</span> as_of_date
+<span class="kw">FROM</span> {{ <span class="fn">ref</span>(<span class="st">'silver_positions'</span>) }} pos
+<span class="kw">JOIN</span> {{ <span class="fn">ref</span>(<span class="st">'dim_portfolios'</span>) }}  p <span class="kw">USING</span> (portfolio_id)
+<span class="kw">GROUP BY</span> <span class="nm">1</span>, <span class="nm">2</span></pre>
+<div class="a-takeaways"><div class="a-takeaways-title">Key Takeaways</div><ul class="a-list"><li>Bronze is append-only — never mutate or delete raw data; it is your audit trail</li><li>Silver MERGE operations use composite natural keys, not surrogate keys</li><li>Define data quality as YAML tests in dbt, not as ad-hoc SQL checks</li><li>Gold layer should be owned by analytics engineers, not data engineers</li><li>Schema evolution is handled by Delta Lake MERGE with schema evolution flags</li></ul></div>
+</div>
+
+<div id="art-8" hidden>
+<p class="a-p">The difference between a 0.71 AUC churn model and a 0.89 AUC churn model is rarely the algorithm — it is almost always the features. This article documents the feature engineering playbook used to lift a telecoms churn model from baseline to production-grade performance.</p>
+<div class="a-h2">The Temporal Leakage Problem</div>
+<div class="a-warn"><strong>The most dangerous bug in financial ML:</strong> Using future data to predict the past. If your "last 30-day spend" feature is computed from the full dataset rather than up to the prediction date, your model will appear to achieve near-perfect accuracy — then fail catastrophically in production.</div>
+<pre class="a-code"><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># ❌ LEAKY: computes rolling on full sorted df</span>
+df[<span class="st">"spend_30d"</span>] = df[<span class="st">"spend"</span>].<span class="fn">rolling</span>(<span class="nm">30</span>).<span class="fn">sum</span>()
+
+<span class="cm"># ✅ SAFE: point-in-time correct rolling features</span>
+<span class="kw">def</span> <span class="fn">safe_rolling_features</span>(df: pd.DataFrame, target_date: str) -> pd.DataFrame:
+    <span class="st">"""Only uses data available at target_date."""</span>
+    cutoff = pd.<span class="fn">Timestamp</span>(target_date)
+    hist   = df[df[<span class="st">"transaction_date"</span>] &lt; cutoff].<span class="fn">copy</span>()
+
+    features = hist.<span class="fn">groupby</span>(<span class="st">"customer_id"</span>).<span class="fn">agg</span>(
+        spend_30d  = (<span class="st">"spend"</span>, <span class="kw">lambda</span> x: x.<span class="fn">last</span>(<span class="st">"30D"</span>).<span class="fn">sum</span>()),
+        spend_90d  = (<span class="st">"spend"</span>, <span class="kw">lambda</span> x: x.<span class="fn">last</span>(<span class="st">"90D"</span>).<span class="fn">sum</span>()),
+        tx_count   = (<span class="st">"tx_id"</span>, <span class="st">"count"</span>),
+        days_since = (<span class="st">"transaction_date"</span>, <span class="kw">lambda</span> x: (cutoff - x.<span class="fn">max</span>()).days)
+    )
+    <span class="kw">return</span> features</pre>
+<div class="a-h2">Rolling & Lag Feature Engineering</div>
+<pre class="a-code"><span class="cm"># Velocity features — rate of change signals</span>
+<span class="kw">for</span> col <span class="kw">in</span> [<span class="st">"spend"</span>, <span class="st">"login_count"</span>, <span class="st">"support_calls"</span>]:
+    df[<span class="st">f"{col}_30d"</span>]    = df.<span class="fn">groupby</span>(<span class="st">"customer_id"</span>)[col].<span class="fn">transform</span>(<span class="kw">lambda</span> x: x.<span class="fn">rolling</span>(<span class="nm">30</span>).<span class="fn">sum</span>())
+    df[<span class="st">f"{col}_90d"</span>]    = df.<span class="fn">groupby</span>(<span class="st">"customer_id"</span>)[col].<span class="fn">transform</span>(<span class="kw">lambda</span> x: x.<span class="fn">rolling</span>(<span class="nm">90</span>).<span class="fn">sum</span>())
+    df[<span class="st">f"{col}_trend"</span>]  = df[<span class="st">f"{col}_30d"</span>] / (df[<span class="st">f"{col}_90d"</span>] / <span class="nm">3</span> + <span class="nm">1e-6</span>)  <span class="cm"># acceleration</span>
+    df[<span class="st">f"{col}_lag_1m"</span>] = df.<span class="fn">groupby</span>(<span class="st">"customer_id"</span>)[col].<span class="fn">shift</span>(<span class="nm">30</span>)
+
+<span class="cm"># Target encoding with cross-validation to prevent overfitting</span>
+<span class="kw">from</span> category_encoders <span class="kw">import</span> TargetEncoder
+<span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> KFold
+
+enc = <span class="fn">TargetEncoder</span>(smoothing=<span class="nm">10</span>)
+kf  = <span class="fn">KFold</span>(n_splits=<span class="nm">5</span>)
+df[<span class="st">"region_encoded"</span>] = <span class="fn">cross_val_predict</span>(enc, df[[<span class="st">"region"</span>]], y, cv=kf)</pre>
+<div class="a-h2">Feature Importance & Selection</div>
+<pre class="a-code"><span class="kw">import</span> xgboost <span class="kw">as</span> xgb
+<span class="kw">from</span> sklearn.inspection <span class="kw">import</span> permutation_importance
+
+model = xgb.<span class="fn">XGBClassifier</span>(n_estimators=<span class="nm">500</span>, max_depth=<span class="nm">6</span>, learning_rate=<span class="nm">0.05</span>)
+model.<span class="fn">fit</span>(X_train, y_train)
+
+<span class="cm"># Permutation importance is more reliable than built-in feature importance</span>
+perm = <span class="fn">permutation_importance</span>(model, X_val, y_val, n_repeats=<span class="nm">10</span>)
+feat_importance = pd.<span class="fn">Series</span>(perm.importances_mean, index=X_val.columns)
+feat_importance.<span class="fn">nlargest</span>(<span class="nm">20</span>).<span class="fn">plot</span>(kind=<span class="st">"barh"</span>)</pre>
+<div class="a-metrics"><div class="a-metric"><div class="a-metric-val">0.89</div><div class="a-metric-lbl">AUC after feature engineering</div></div><div class="a-metric"><div class="a-metric-val">0.71</div><div class="a-metric-lbl">AUC with raw features</div></div><div class="a-metric"><div class="a-metric-val">18pp</div><div class="a-metric-lbl">lift from features alone</div></div></div>
+<div class="a-takeaways"><div class="a-takeaways-title">Key Takeaways</div><ul class="a-list"><li>Temporal leakage is the silent killer of financial ML models — always enforce point-in-time correctness</li><li>Trend/acceleration features (30d vs 90d ratio) outperform raw values for churn detection</li><li>Use cross-validated target encoding to prevent overfitting on high-cardinality categoricals</li><li>Permutation importance on a held-out validation set is more reliable than built-in XGBoost importance</li><li>Feature engineering contributed 18 percentage points of AUC lift — more than any algorithm switch</li></ul></div>
+</div>
+
+<div id="art-9" hidden>
+<p class="a-p">A model that lives only in a Jupyter notebook is not an AI product — it is an experiment. This article covers the complete MLOps lifecycle: model serialisation, FastAPI inference API, Docker containerisation, CI/CD with GitHub Actions, and Prometheus monitoring in production.</p>
+<div class="a-h2">Step 1: Serialise the Model</div>
+<pre class="a-code"><span class="kw">import</span> joblib, json
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+
+<span class="cm"># Save model + metadata bundle</span>
+bundle = {
+    <span class="st">"model"</span>:    pipeline,          <span class="cm"># sklearn Pipeline object</span>
+    <span class="st">"version"</span>:  <span class="st">"1.3.0"</span>,
+    <span class="st">"features"</span>: FEATURE_COLS,
+    <span class="st">"threshold"</span>: <span class="nm">0.42</span>,            <span class="cm"># tuned on F1 @ production prevalence</span>
+    <span class="st">"trained_on"</span>: <span class="st">"2024-10-15"</span>,
+    <span class="st">"auc_val"</span>: <span class="nm">0.891</span>
+}
+Path(<span class="st">"models/"</span>).<span class="fn">mkdir</span>(exist_ok=<span class="nm">True</span>)
+joblib.<span class="fn">dump</span>(bundle, <span class="st">"models/churn_v1.3.0.pkl"</span>, compress=<span class="nm">3</span>)</pre>
+<div class="a-h2">Step 2: FastAPI Inference Endpoint</div>
+<pre class="a-code"><span class="cm"># app/main.py</span>
+<span class="kw">from</span> fastapi <span class="kw">import</span> FastAPI, HTTPException
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel
+<span class="kw">import</span> joblib, numpy <span class="kw">as</span> np
+<span class="kw">from</span> prometheus_client <span class="kw">import</span> Counter, Histogram, make_asgi_app
+
+app = <span class="fn">FastAPI</span>(title=<span class="st">"Churn Prediction API"</span>, version=<span class="st">"1.3.0"</span>)
+bundle = joblib.<span class="fn">load</span>(<span class="st">"models/churn_v1.3.0.pkl"</span>)
+
+PREDICTION_COUNT = <span class="fn">Counter</span>(<span class="st">"predictions_total"</span>, <span class="st">"Total predictions"</span>, [<span class="st">"outcome"</span>])
+LATENCY_HIST     = <span class="fn">Histogram</span>(<span class="st">"inference_latency_seconds"</span>, <span class="st">"Inference latency"</span>)
+
+<span class="kw">class</span> CustomerFeatures(BaseModel):
+    spend_30d: <span class="fn">float</span>
+    spend_trend: <span class="fn">float</span>
+    days_since_last_tx: <span class="fn">int</span>
+    support_calls_90d: <span class="fn">int</span>
+    login_count_30d: <span class="fn">int</span>
+
+@app.<span class="fn">post</span>(<span class="st">"/predict"</span>)
+<span class="kw">async def</span> <span class="fn">predict</span>(features: CustomerFeatures):
+    <span class="kw">with</span> LATENCY_HIST.<span class="fn">time</span>():
+        X = np.<span class="fn">array</span>([[
+            features.spend_30d, features.spend_trend,
+            features.days_since_last_tx,
+            features.support_calls_90d, features.login_count_30d
+        ]])
+        prob  = bundle[<span class="st">"model"</span>].<span class="fn">predict_proba</span>(X)[<span class="nm">0</span>, <span class="nm">1</span>]
+        label = <span class="st">"churn"</span> <span class="kw">if</span> prob >= bundle[<span class="st">"threshold"</span>] <span class="kw">else</span> <span class="st">"retain"</span>
+    PREDICTION_COUNT.<span class="fn">labels</span>(outcome=label).<span class="fn">inc</span>()
+    <span class="kw">return</span> {<span class="st">"prediction"</span>: label, <span class="st">"churn_probability"</span>: <span class="fn">round</span>(<span class="fn">float</span>(prob), <span class="nm">4</span>), <span class="st">"model_version"</span>: bundle[<span class="st">"version"</span>]}
+
+app.<span class="fn">mount</span>(<span class="st">"/metrics"</span>, <span class="fn">make_asgi_app</span>())</pre>
+<div class="a-h2">Step 3: Dockerfile</div>
+<pre class="a-code"><span class="cm"># Dockerfile — multi-stage build keeps image under 400MB</span>
+<span class="kw">FROM</span> python:<span class="nm">3.11</span>-slim <span class="kw">AS</span> builder
+<span class="kw">WORKDIR</span> /build
+<span class="kw">COPY</span> requirements.txt .
+<span class="kw">RUN</span> pip install --no-cache-dir -r requirements.txt
+
+<span class="kw">FROM</span> python:<span class="nm">3.11</span>-slim
+<span class="kw">WORKDIR</span> /app
+<span class="kw">COPY</span> --from=builder /usr/local/lib /usr/local/lib
+<span class="kw">COPY</span> app/ ./app/
+<span class="kw">COPY</span> models/ ./models/
+<span class="kw">EXPOSE</span> 8000
+<span class="kw">HEALTHCHECK</span> --interval=30s CMD curl -f http://localhost:8000/health || exit 1
+<span class="kw">CMD</span> [<span class="st">"uvicorn"</span>, <span class="st">"app.main:app"</span>, <span class="st">"--host"</span>, <span class="st">"0.0.0.0"</span>, <span class="st">"--workers"</span>, <span class="st">"4"</span>]</pre>
+<div class="a-callout"><strong>Prometheus metric to watch:</strong> If <code>inference_latency_seconds_p99</code> exceeds your SLA, alert before users notice. Track prediction distribution drift with Chi-squared tests on daily prediction histograms.</div>
+<div class="a-takeaways"><div class="a-takeaways-title">Key Takeaways</div><ul class="a-list"><li>Serialise model bundles with version, feature list and threshold metadata — not just the model object</li><li>FastAPI + Pydantic gives you automatic input validation and OpenAPI docs for free</li><li>Multi-stage Docker builds keep image size under 400MB for faster CI/CD deploys</li><li>Instrument inference latency and prediction distribution with Prometheus from day one</li><li>A HEALTHCHECK in the Dockerfile enables zero-downtime rolling deploys in Kubernetes</li></ul></div>
+</div>
+
+<div id="art-10" hidden>
+<p class="a-p">Window functions are the single most powerful SQL feature for financial analytics — yet most analysts use only SUM() OVER (PARTITION BY). This article covers production query patterns for running totals, moving averages, YoY comparisons and cohort analysis used in live investment banking dashboards.</p>
+<div class="a-h2">Running Portfolio Totals</div>
+<pre class="a-code"><span class="cm">-- Running AUM by portfolio, ordered by trade date</span>
+<span class="kw">SELECT</span>
+    trade_date,
+    portfolio_id,
+    daily_pnl,
+    <span class="fn">SUM</span>(daily_pnl) <span class="kw">OVER</span> (
+        <span class="kw">PARTITION BY</span> portfolio_id
+        <span class="kw">ORDER BY</span>     trade_date
+        <span class="kw">ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</span>
+    )                              <span class="kw">AS</span> cumulative_pnl,
+    <span class="fn">SUM</span>(market_value) <span class="kw">OVER</span> (
+        <span class="kw">PARTITION BY</span> portfolio_id
+        <span class="kw">ORDER BY</span>     trade_date
+        <span class="kw">ROWS BETWEEN</span> <span class="nm">1</span> <span class="kw">PRECEDING AND</span> <span class="nm">1</span> <span class="kw">FOLLOWING</span>  <span class="cm">-- 3-day centred window</span>
+    )                              <span class="kw">AS</span> smoothed_aum
+<span class="kw">FROM</span> fct_portfolio_daily</pre>
+<div class="a-h2">30 / 90-Day Moving Average — Avoiding the NULL Trap</div>
+<pre class="a-code"><span class="cm">-- ROWS BETWEEN vs RANGE BETWEEN: critical difference</span>
+<span class="kw">SELECT</span>
+    trade_date,
+    close_price,
+    <span class="cm">-- ❌ RANGE: uses peer rows (duplicates inflate the avg)</span>
+    <span class="fn">AVG</span>(close_price) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> trade_date
+        <span class="kw">RANGE BETWEEN INTERVAL</span> <span class="st">'29 days'</span> <span class="kw">PRECEDING AND CURRENT ROW</span>) <span class="kw">AS</span> ma30_range,
+    <span class="cm">-- ✅ ROWS: always uses exactly 30 prior rows</span>
+    <span class="fn">AVG</span>(close_price) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> trade_date
+        <span class="kw">ROWS BETWEEN</span> <span class="nm">29</span> <span class="kw">PRECEDING AND CURRENT ROW</span>) <span class="kw">AS</span> ma30_rows,
+    <span class="cm">-- NULL-safe: only compute when 30 full rows exist</span>
+    <span class="kw">CASE</span> <span class="kw">WHEN</span> <span class="fn">COUNT</span>(*) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> trade_date <span class="kw">ROWS BETWEEN</span> <span class="nm">29</span> <span class="kw">PRECEDING AND CURRENT ROW</span>) = <span class="nm">30</span>
+         <span class="kw">THEN</span> <span class="fn">AVG</span>(close_price) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> trade_date <span class="kw">ROWS BETWEEN</span> <span class="nm">29</span> <span class="kw">PRECEDING AND CURRENT ROW</span>)
+         <span class="kw">END</span>                             <span class="kw">AS</span> ma30_safe
+<span class="kw">FROM</span> market_prices</pre>
+<div class="a-h2">Year-over-Year with LAG</div>
+<pre class="a-code"><span class="kw">WITH</span> monthly_revenue <span class="kw">AS</span> (
+    <span class="kw">SELECT</span>
+        <span class="fn">DATE_TRUNC</span>(<span class="st">'month'</span>, trade_date)  <span class="kw">AS</span> month,
+        <span class="fn">SUM</span>(commission_revenue)          <span class="kw">AS</span> revenue
+    <span class="kw">FROM</span>  fct_trades
+    <span class="kw">GROUP BY</span> <span class="nm">1</span>
+)
+<span class="kw">SELECT</span>
+    month,
+    revenue,
+    <span class="fn">LAG</span>(revenue, <span class="nm">12</span>) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> month)   <span class="kw">AS</span> revenue_prior_year,
+    <span class="fn">ROUND</span>(
+        (revenue - <span class="fn">LAG</span>(revenue, <span class="nm">12</span>) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> month))
+        / <span class="fn">NULLIF</span>(<span class="fn">LAG</span>(revenue, <span class="nm">12</span>) <span class="kw">OVER</span> (<span class="kw">ORDER BY</span> month), <span class="nm">0</span>) * <span class="nm">100</span>,
+        <span class="nm">2</span>
+    )                                             <span class="kw">AS</span> yoy_growth_pct
+<span class="kw">FROM</span> monthly_revenue
+<span class="kw">ORDER BY</span> month</pre>
+<div class="a-h2">Cohort Retention Analysis</div>
+<pre class="a-code"><span class="kw">WITH</span> cohorts <span class="kw">AS</span> (
+    <span class="kw">SELECT</span>
+        customer_id,
+        <span class="fn">MIN</span>(<span class="fn">DATE_TRUNC</span>(<span class="st">'month'</span>, trade_date)) <span class="kw">AS</span> cohort_month
+    <span class="kw">FROM</span>  fct_trades
+    <span class="kw">GROUP BY</span> <span class="nm">1</span>
+),
+activity <span class="kw">AS</span> (
+    <span class="kw">SELECT</span>
+        t.customer_id,
+        c.cohort_month,
+        <span class="fn">DATE_TRUNC</span>(<span class="st">'month'</span>, t.trade_date) <span class="kw">AS</span> activity_month,
+        <span class="fn">DATEDIFF</span>(<span class="st">'month'</span>, c.cohort_month, <span class="fn">DATE_TRUNC</span>(<span class="st">'month'</span>, t.trade_date)) <span class="kw">AS</span> period
+    <span class="kw">FROM</span>  fct_trades t
+    <span class="kw">JOIN</span>  cohorts c <span class="kw">USING</span> (customer_id)
+)
+<span class="kw">SELECT</span>
+    cohort_month,
+    period,
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> customer_id)     <span class="kw">AS</span> active_customers,
+    <span class="fn">FIRST_VALUE</span>(<span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> customer_id)) <span class="kw">OVER</span> (
+        <span class="kw">PARTITION BY</span> cohort_month <span class="kw">ORDER BY</span> period
+    )                                <span class="kw">AS</span> cohort_size,
+    <span class="fn">ROUND</span>(<span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> customer_id) * <span class="nm">100.0</span>
+          / <span class="fn">FIRST_VALUE</span>(<span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> customer_id)) <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> cohort_month <span class="kw">ORDER BY</span> period), <span class="nm">1</span>)
+                                     <span class="kw">AS</span> retention_pct
+<span class="kw">FROM</span>  activity
+<span class="kw">GROUP BY</span> <span class="nm">1</span>, <span class="nm">2</span>
+<span class="kw">ORDER BY</span> <span class="nm">1</span>, <span class="nm">2</span></pre>
+<div class="a-takeaways"><div class="a-takeaways-title">Key Takeaways</div><ul class="a-list"><li>ROWS BETWEEN is almost always the right choice over RANGE BETWEEN for financial time series</li><li>Guard moving averages against early-period NULLs with a COUNT() OVER companion window</li><li>LAG(col, 12) for monthly YoY is cleaner and faster than a self-join on prior year</li><li>FIRST_VALUE() OVER (PARTITION BY cohort) eliminates the need for a separate cohort size subquery</li><li>NULLIF() in the denominator prevents divide-by-zero in growth rate calculations</li></ul></div>
+</div>
+
+<script>
+// ─── NAVIGATION ───────────────────────────────────────────────
+const pages = ['home','projects','casestudy','blog','contact','study'];
+function go(id) {
+  pages.forEach(p => {
+    document.getElementById(p).classList.remove('active');
+    const n = document.getElementById('n-'+p);
+    if(n) n.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+  const n = document.getElementById('n-'+id);
+  if(n) n.classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='projects') setTimeout(drawProjects, 80);
+  if(id==='casestudy') setTimeout(drawCS, 80);
+  if(id==='contact')   setTimeout(animateBars, 300);
+}
+
+// ─── PARTICLES ────────────────────────────────────────────────
+const bgc = document.getElementById('bgc');
+const bgx = bgc.getContext('2d');
+let W, H;
+function resize(){ W = bgc.width = innerWidth; H = bgc.height = innerHeight; }
+resize(); addEventListener('resize', resize);
+
+const pts = Array.from({length:75}, () => ({
+  x: Math.random()*innerWidth, y: Math.random()*innerHeight,
+  vx:(Math.random()-.5)*.38, vy:(Math.random()-.5)*.38,
+  r: Math.random()*1.4+.5,
+  op: Math.random()*.38+.08,
+col: ['#7c3aed','#a855f7','#d4561a','#e879f9'][Math.floor(Math.random()*4)]
+}));
+
+function frame(){
+  bgx.clearRect(0,0,W,H);
+  pts.forEach(p => {
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;
+    if(p.y<0||p.y>H)p.vy*=-1;
+    bgx.beginPath(); bgx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    bgx.fillStyle=p.col; bgx.globalAlpha=p.op; bgx.fill(); bgx.globalAlpha=1;
+  });
+  for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
+    const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    if(d<115){ bgx.beginPath(); bgx.moveTo(pts[i].x,pts[i].y); bgx.lineTo(pts[j].x,pts[j].y);
+      bgx.strokeStyle='#7c3aed'; bgx.globalAlpha=(1-d/115)*.3; bgx.lineWidth=.5; bgx.stroke();}
+  }
+  requestAnimationFrame(frame);
+}
+frame();
+
+// ─── CURSOR GLOW ──────────────────────────────────────────────
+const glowEl = document.getElementById('glow');
+document.addEventListener('mousemove', e => {
+  glowEl.style.left = e.clientX+'px'; glowEl.style.top = e.clientY+'px';
+});
+
+// ─── CHART HELPERS ────────────────────────────────────────────
+function bar(ctx, x, y, w, h, c1, c2){
+  const g = ctx.createLinearGradient(x,y,x,y+h);
+  g.addColorStop(0,c1); g.addColorStop(1,c2);
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  if(ctx.roundRect) ctx.roundRect(x,y,w,h,[4,4,0,0]);
+  else ctx.rect(x,y,w,h);
+  ctx.fill();
+}
+
+function spark(canv, data, col){
+  const c=canv.getContext('2d'), w=canv.offsetWidth||canv.width, h=canv.height;
+  canv.width=w;
+  c.clearRect(0,0,w,h);
+  const mx=Math.max(...data), mn=Math.min(...data), rng=mx-mn||1, step=w/(data.length-1);
+  c.beginPath();
+  data.forEach((v,i)=>{ const x=i*step, y=h-((v-mn)/rng)*(h-4)-2; i?c.lineTo(x,y):c.moveTo(x,y); });
+  c.strokeStyle=col; c.lineWidth=1.5; c.stroke();
+}
+
+function drawProjects(){
+  // Bar chart
+  const canv=document.getElementById('proj-chart');
+  if(!canv)return;
+  const w=canv.offsetWidth||canv.parentElement.offsetWidth||280;
+  canv.width=w; canv.height=200;
+  const ctx=canv.getContext('2d');
+  ctx.clearRect(0,0,w,200);
+  const cols=[['#d4561a','#7c3aed'],['#e879f9','#6d28d9'],['#b54a14','#a855f7'],['#d4561a','#4c1d95']];
+  const hs=[120,90,155,75,135,100,165,110];
+  const bw=(w-36)/(hs.length)-7;
+  hs.forEach((h,i)=>{ const x=18+i*(bw+7), y=200-25-h, c=cols[i%4]; bar(ctx,x,y,bw,h,c[0],c[1]); });
+  ctx.fillStyle='rgba(241,245,249,0.28)'; ctx.font='9px Segoe UI,sans-serif'; ctx.textAlign='center';
+  ['Q1','Q1','Q2','Q2','Q3','Q3','Q4','Q4'].forEach((l,i)=>ctx.fillText(l, 18+i*(bw+7)+bw/2, 196));
+  // Grid lines
+  ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=.5;
+  [40,80,120,160].forEach(y=>{ ctx.beginPath(); ctx.moveTo(18,200-25-y); ctx.lineTo(w-8,200-25-y); ctx.stroke(); });
+
+  // Map
+  drawMap(document.getElementById('map-chart'));
+
+  // Sparklines
+  spark(document.getElementById('mc1'),[28,44,37,59,54,70,64,80],'#d4561a');
+  spark(document.getElementById('mc2'),[60,49,70,44,80,59,74,90],'#a78bfa');
+  spark(document.getElementById('mc3'),[40,54,35,64,49,74,59,70],'#e879f9');
+}
+
+function drawMap(canv){
+  if(!canv)return;
+  const w=canv.offsetWidth||canv.parentElement.offsetWidth||280;
+  canv.width=w; canv.height=200;
+  const c=canv.getContext('2d');
+  c.fillStyle='rgba(6,12,24,0.9)'; c.fillRect(0,0,w,200);
+  c.strokeStyle='rgba(124,58,237,0.1)'; c.lineWidth=.5;
+  for(let x=0;x<w;x+=22){ c.beginPath();c.moveTo(x,0);c.lineTo(x,200);c.stroke(); }
+  for(let y=0;y<200;y+=22){ c.beginPath();c.moveTo(0,y);c.lineTo(w,y);c.stroke(); }
+  const pts2=[[.28,.38],[.52,.28],[.63,.58],[.18,.68],[.78,.38],[.42,.52],[.68,.2],[.12,.48],[.88,.68],[.56,.78]];
+  const cols=[['#d4561a',16],['#a78bfa',11],['#e879f9',8]];
+  pts2.forEach(([px,py],i)=>{
+    const x=px*w, y=py*200, [col,r]=cols[i%3];
+    c.beginPath(); c.arc(x,y,r,0,Math.PI*2);
+    c.fillStyle=col.replace(')',',0.14)').replace('rgb','rgba'); c.fill();
+    c.beginPath(); c.arc(x,y,2.5,0,Math.PI*2); c.fillStyle=col; c.fill();
+  });
+  c.strokeStyle='rgba(212,86,26,0.35)'; c.lineWidth=.8; c.beginPath();
+  pts2.forEach(([px,py],i)=>{ const x=px*w, y=py*200; i?c.lineTo(x,y):c.moveTo(x,y); });
+  c.stroke();
+}
+
+function drawCS(){
+  const canv=document.getElementById('cs-chart');
+  if(!canv)return;
+  const w=canv.offsetWidth||canv.parentElement.offsetWidth||300;
+  canv.width=w; canv.height=170;
+  const ctx=canv.getContext('2d');
+  ctx.clearRect(0,0,w,170);
+  const d=[{h:95,c:['#d4561a','#7c3aed'],l:'Jan'},{h:125,c:['#e879f9','#6d28d9'],l:'Feb'},{h:85,c:['#b54a14','#a855f7'],l:'Mar'},{h:145,c:['#d4561a','#7c3aed'],l:'Apr'},{h:105,c:['#e879f9','#4c1d95'],l:'May'},{h:135,c:['#b54a14','#6d28d9'],l:'Jun'}];
+  const bw=(w-36)/(d.length)-9;
+  d.forEach((item,i)=>{ const x=18+i*(bw+9), y=170-22-item.h; bar(ctx,x,y,bw,item.h,item.c[0],item.c[1]); ctx.fillStyle='rgba(241,245,249,0.28)'; ctx.font='9px Segoe UI'; ctx.textAlign='center'; ctx.fillText(item.l,x+bw/2,167); });
+  ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=.5;
+  [40,80,120].forEach(y=>{ ctx.beginPath();ctx.moveTo(18,170-22-y);ctx.lineTo(w-8,170-22-y);ctx.stroke(); });
+}
+
+// ─── SIDEBAR ──────────────────────────────────────────────────
+function sbPick(el){
+  el.closest('.sb-group').querySelectorAll('.sb-item').forEach(i=>i.classList.remove('on'));
+  el.classList.add('on');
+}
+
+// ─── BLOG FILTER ──────────────────────────────────────────────
+function filt(btn, cat){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.bcard').forEach(c=>{
+    const show = cat==='all' || c.dataset.cat===cat;
+    c.style.display = show ? '' : 'none';
+    if(show) c.style.animation='fi .3s ease';
+  });
+}
+
+function searchBlog(q){
+  const lq = q.toLowerCase().trim();
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  document.querySelector('.fbtn').classList.add('on');
+  document.querySelectorAll('.bcard').forEach(c=>{
+    const hay = (c.dataset.search||'') + ' ' + (c.querySelector('.bcard-title')||{}).innerText;
+    c.style.display = (!lq || hay.toLowerCase().includes(lq)) ? '' : 'none';
+  });
+}
+
+// ─── ARTICLE MODAL ────────────────────────────────────────────
+const ARTICLE_META = {
+  1:  {cat:'AI Strategy',   title:'Why 90% of AI Projects Fail in Companies',                   date:'Nov 2024', time:'8 min read',  views:'2,400 views'},
+  2:  {cat:'ML Systems',    title:'How Uber Uses Machine Learning Every Second',                  date:'Oct 2024', time:'9 min read',  views:'3,100 views'},
+  3:  {cat:'Data Engineering', title:'Building Real-Time ETL Pipelines with Airflow & dbt',      date:'Sep 2024', time:'11 min read', views:'1,850 views'},
+  4:  {cat:'BI Tools',      title:'Power BI DAX Optimization: Sub-Second at Scale',              date:'Aug 2024', time:'10 min read', views:'2,200 views'},
+  5:  {cat:'NLP',           title:'FinBERT: NLP Sentiment on Financial Earnings Calls',           date:'Jul 2024', time:'12 min read', views:'1,640 views'},
+  6:  {cat:'Financial Analytics', title:'Monte Carlo Simulation for Portfolio VaR in Python',    date:'Jun 2024', time:'13 min read', views:'1,980 views'},
+  7:  {cat:'Data Engineering', title:'Medallion Architecture: Bronze → Silver → Gold',           date:'May 2024', time:'10 min read', views:'1,420 views'},
+  8:  {cat:'ML Engineering', title:'Feature Engineering for Financial Churn Models',             date:'Apr 2024', time:'11 min read', views:'1,310 views'},
+  9:  {cat:'MLOps',         title:'MLOps: Jupyter Notebook to FastAPI Production',               date:'Mar 2024', time:'14 min read', views:'2,050 views'},
+  10: {cat:'SQL',           title:'Advanced SQL Window Functions for Financial Analytics',        date:'Feb 2024', time:'9 min read',  views:'2,780 views'},
+};
+
+let currentArt = null;
+
+function openArt(id){
+  const m   = ARTICLE_META[id];
+  const body = document.getElementById('art-' + id);
+  if(!m || !body) return;
+
+  document.getElementById('m-cat').textContent   = m.cat;
+  document.getElementById('m-title').textContent = m.title;
+  document.getElementById('m-meta').innerHTML    =
+    `<span>${m.date}</span><span>${m.time}</span><span>${m.views}</span>`;
+  document.getElementById('m-body').innerHTML    = body.innerHTML;
+
+  const bg = document.getElementById('modal-bg');
+  bg.classList.add('open');
+  bg.scrollTop = 0;
+  document.getElementById('mpb').style.width = '0%';
+  document.body.style.overflow = 'hidden';
+  currentArt = id;
+
+  // reading progress
+  bg.onscroll = function(){
+    const panel = document.getElementById('modal-panel');
+    const scrolled = bg.scrollTop;
+    const total    = panel.scrollHeight - bg.clientHeight;
+    document.getElementById('mpb').style.width = (scrolled / total * 100) + '%';
+  };
+}
+
+function closeArt(e){
+  if(e && e.target !== document.getElementById('modal-bg') && !(e.target.classList && e.target.classList.contains('modal-close'))) return;
+  document.getElementById('modal-bg').classList.remove('open');
+  document.body.style.overflow = '';
+  currentArt = null;
+}
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeArt(); });
+
+// ─── CONTACT FORM ─────────────────────────────────────────────
+function updateCounter(el){
+  document.getElementById('char-count').textContent = el.value.length;
+}
+
+function validateForm(){
+  let ok = true;
+  const set = (id, errId, cond) => {
+    const el = document.getElementById(id);
+    const er = document.getElementById(errId);
+    if(!cond){ el.classList.add('err'); er.classList.add('show'); ok=false; }
+    else { el.classList.remove('err'); er.classList.remove('show'); }
+  };
+  const name  = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const subj  = document.getElementById('f-subject').value;
+  const msg   = document.getElementById('f-msg').value.trim();
+  set('f-name',    'err-name',    name.length >= 2);
+  set('f-email',   'err-email',   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+  set('f-subject', 'err-subject', subj !== '');
+  set('f-msg',     'err-msg',     msg.length >= 20);
+  return ok;
+}
+
+function submitForm(e){
+  e.preventDefault();
+  if(document.getElementById('f-hp').value) return; // honeypot
+  if(!validateForm()) return;
+
+  const btn   = document.getElementById('form-submit-btn');
+  const label = document.getElementById('btn-label');
+  const spin  = document.getElementById('btn-spin');
+
+  btn.disabled = true;
+  label.style.display = 'none';
+  spin.style.display  = 'block';
+
+  const name    = document.getElementById('f-name').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const subjVal = document.getElementById('f-subject');
+  const subjTxt = subjVal.options[subjVal.selectedIndex].text;
+  const company = document.getElementById('f-company').value.trim();
+  const msg     = document.getElementById('f-msg').value.trim();
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify({
+      access_key: 'cd36fa9c-6eec-412f-8f3f-66c24abb1fab',
+      subject: 'Portfolio Enquiry: ' + subjTxt,
+      from_name: name,
+      replyto: email,
+      message: (company ? 'Company: '+company+'\n' : '')+'Topic: '+subjTxt+'\n\n'+msg
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    btn.disabled = false;
+    label.style.display = '';
+    spin.style.display  = 'none';
+    if(data.success){
+      document.getElementById('form-state').style.display   = 'none';
+      document.getElementById('success-state').style.display = 'flex';
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+  })
+  .catch(() => {
+    btn.disabled = false;
+    label.style.display = '';
+    spin.style.display  = 'none';
+    alert('Network error. Please try again.');
+  });
+}
+
+function resetForm(){
+  document.getElementById('contact-form').reset();
+  document.getElementById('char-count').textContent = '0';
+  document.querySelectorAll('.form-err').forEach(e=>e.classList.remove('show'));
+  document.querySelectorAll('.form-input,.form-select,.form-textarea').forEach(e=>e.classList.remove('err'));
+  document.getElementById('form-state').style.display   = '';
+  document.getElementById('success-state').style.display = 'none';
+}
+
+function animateBars(){
+  document.querySelectorAll('.skill-bar-fill').forEach(bar=>{
+    bar.style.width = bar.dataset.w + '%';
+  });
+}
+
+// live validation on blur
+['f-name','f-email','f-subject','f-msg'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.addEventListener('blur', validateForm);
+  el.addEventListener('input', ()=>{ el.classList.remove('err'); });
+});
+
+// ─── INIT ─────────────────────────────────────────────────────
+addEventListener('resize', ()=>{
+  const a=document.querySelector('.page.active');
+  if(a&&a.id==='projects') drawProjects();
+  if(a&&a.id==='casestudy') drawCS();
+});
+</script>
+</body>
+</html>
